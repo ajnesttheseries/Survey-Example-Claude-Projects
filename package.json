@@ -1,0 +1,12 @@
+{
+  "name": "survey-example-claude-projects",
+  "version": "1.0.0",
+  "private": true,
+  "description": "เครื่องมือช่วยเก็บข้อมูลแบบสำรวจ / ความคิดเห็นจากโซเชียล",
+  "scripts": {
+    "test": "node tools/test/extractor.test.js"
+  },
+  "devDependencies": {
+    "jsdom": "^27.0.0"
+  }
+}

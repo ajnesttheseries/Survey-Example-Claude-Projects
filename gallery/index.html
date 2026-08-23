@@ -1,0 +1,559 @@
+<title>นิทรรศการผลงาน AI ไทย</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Trirong:wght@400;500;600&family=IBM+Plex+Sans+Thai:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  --paper:#EFEFEA; --card:#F7F7F4; --ink:#16181A; --ink-soft:#3D4247;
+  --muted:#6B7075; --rule:#D6D6CF; --rule-soft:#E3E3DC;
+  --blue:#2438D9; --rose:#E8455F; --cover:#E7E7E0;
+  --shadow:0 1px 0 rgba(22,24,26,.06), 0 12px 28px -22px rgba(22,24,26,.5);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --paper:#0D0F12; --card:#161A20; --ink:#E9E9E3; --ink-soft:#B9BCC0;
+    --muted:#8B9096; --rule:#2A2F37; --rule-soft:#20242B;
+    --blue:#8C99FF; --rose:#FF7E93; --cover:#1B2028;
+    --shadow:0 1px 0 rgba(0,0,0,.4), 0 14px 30px -24px #000;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#0D0F12; --card:#161A20; --ink:#E9E9E3; --ink-soft:#B9BCC0;
+  --muted:#8B9096; --rule:#2A2F37; --rule-soft:#20242B;
+  --blue:#8C99FF; --rose:#FF7E93; --cover:#1B2028;
+  --shadow:0 1px 0 rgba(0,0,0,.4), 0 14px 30px -24px #000;
+}
+
+*{box-sizing:border-box}
+body{
+  margin:0; background:var(--paper); color:var(--ink);
+  font-family:"IBM Plex Sans Thai",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  font-size:15px; line-height:1.65; -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:1180px; margin:0 auto; padding:0 24px}
+a{color:var(--blue)}
+:focus-visible{outline:2px solid var(--blue); outline-offset:3px; border-radius:2px}
+
+/* ── หัวนิทรรศการ ── */
+.mast{padding:64px 0 40px; border-bottom:1px solid var(--rule)}
+.eyebrow{
+  font-family:"IBM Plex Mono",monospace; font-size:11px; letter-spacing:.18em;
+  text-transform:uppercase; color:var(--rose); margin:0 0 18px;
+}
+.mast h1{
+  font-family:Trirong,Georgia,serif; font-weight:500; font-size:clamp(2.4rem,6.2vw,4.1rem);
+  line-height:1.08; letter-spacing:-.015em; margin:0 0 20px; text-wrap:balance; max-width:16ch;
+}
+.deck{font-size:1.06rem; color:var(--ink-soft); max-width:62ch; margin:0 0 28px}
+.prov{
+  font-family:"IBM Plex Mono",monospace; font-size:12px; color:var(--muted);
+  display:flex; flex-wrap:wrap; gap:8px; align-items:baseline;
+}
+.stats{
+  display:flex; flex-wrap:wrap; gap:0; margin-top:34px;
+  border-top:1px solid var(--rule); padding-top:22px;
+}
+.stat{padding-right:44px}
+.stat b{
+  display:block; font-family:"IBM Plex Mono",monospace; font-weight:500;
+  font-size:1.85rem; line-height:1.1; font-variant-numeric:tabular-nums;
+}
+.stat span{font-size:12px; color:var(--muted); letter-spacing:.02em}
+
+/* ── แถบควบคุม ── */
+.index{padding:34px 0 4px; border-bottom:1px solid var(--rule)}
+.index h2{
+  font-family:"IBM Plex Mono",monospace; font-size:11px; font-weight:500;
+  letter-spacing:.18em; text-transform:uppercase; color:var(--muted); margin:0 0 14px;
+}
+.bar{
+  position:sticky; top:0; z-index:20; background:var(--paper);
+  border-bottom:1px solid var(--rule); padding:12px 0;
+}
+.bar-in{display:flex; flex-wrap:wrap; gap:12px; align-items:center}
+.active-filter{
+  display:none; align-items:center; gap:8px; font-family:"IBM Plex Mono",monospace;
+  font-size:12px; background:var(--ink); color:var(--paper);
+  border:0; border-radius:999px; padding:6px 8px 6px 14px; cursor:pointer; font-weight:400;
+}
+.active-filter[data-on="1"]{display:inline-flex}
+.active-filter b{font-weight:500}
+.active-filter span{
+  display:grid; place-items:center; width:17px; height:17px; border-radius:50%;
+  background:rgba(255,255,255,.22); font-size:13px; line-height:1;
+}
+.search{
+  flex:1 1 240px; min-width:200px; display:flex; align-items:center; gap:9px;
+  border:1px solid var(--rule); background:var(--card); border-radius:2px; padding:8px 12px;
+}
+.search svg{flex:none; opacity:.5}
+.search input{
+  border:0; background:none; color:var(--ink); font:inherit; font-size:14px;
+  width:100%; outline:none;
+}
+select{
+  font:inherit; font-size:13px; color:var(--ink); background:var(--card);
+  border:1px solid var(--rule); border-radius:2px; padding:9px 11px;
+}
+.chips{display:flex; flex-wrap:wrap; gap:6px; padding:0 0 18px}
+.chip{
+  font:inherit; font-size:12.5px; color:var(--ink-soft); cursor:pointer;
+  background:none; border:1px solid var(--rule); border-radius:999px; padding:5px 13px;
+  transition:background .12s, color .12s, border-color .12s;
+}
+.chip:hover{border-color:var(--ink-soft)}
+.chip[aria-pressed="true"]{background:var(--ink); border-color:var(--ink); color:var(--paper)}
+.chip i{font-family:"IBM Plex Mono",monospace; font-style:normal; opacity:.55; margin-left:6px}
+.count{font-family:"IBM Plex Mono",monospace; font-size:12px; color:var(--muted);
+  margin:0 0 0 auto; white-space:nowrap}
+/* เผื่อที่ให้แถบ sticky ตอนกระโดดไปยังหัวห้อง */
+html{scroll-padding-top:96px}
+.room{scroll-margin-top:96px}
+
+/* ── ห้องจัดแสดง ── */
+.room{padding:52px 0 8px}
+.room-head{
+  display:flex; align-items:baseline; gap:14px; margin-bottom:26px;
+  border-bottom:1px solid var(--rule); padding-bottom:12px;
+}
+.room-no{
+  font-family:"IBM Plex Mono",monospace; font-size:12px; color:var(--rose);
+  letter-spacing:.1em; flex:none;
+}
+.room-head h2{
+  font-family:Trirong,Georgia,serif; font-weight:500; font-size:1.55rem;
+  margin:0; letter-spacing:-.01em; flex:1;
+}
+.room-n{font-family:"IBM Plex Mono",monospace; font-size:12px; color:var(--muted); flex:none}
+
+.grid{
+  display:grid; gap:30px 26px;
+  grid-template-columns:repeat(auto-fill,minmax(268px,1fr));
+}
+
+/* ── แผ่นป้ายแคตตาล็อก ── */
+.plate{display:flex; flex-direction:column; min-width:0}
+.cover{
+  position:relative; display:block; aspect-ratio:16/10; background:var(--cover);
+  border:1px solid var(--rule); overflow:hidden; text-decoration:none;
+  box-shadow:var(--shadow); transition:transform .18s ease, box-shadow .18s ease;
+}
+a.cover:hover{transform:translateY(-3px); box-shadow:0 1px 0 rgba(22,24,26,.06), 0 20px 34px -22px rgba(22,24,26,.55)}
+.cover canvas{display:block; width:100%; height:100%}
+.cover-no{
+  position:absolute; left:12px; bottom:8px; font-family:"IBM Plex Mono",monospace;
+  font-size:2.6rem; font-weight:500; line-height:1; color:var(--ink);
+  mix-blend-mode:multiply; opacity:.88; font-variant-numeric:tabular-nums;
+}
+:root[data-theme="dark"] .cover-no{mix-blend-mode:screen}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .cover-no{mix-blend-mode:screen}}
+.cover-dom{
+  position:absolute; right:11px; bottom:11px; font-family:"IBM Plex Mono",monospace;
+  font-size:10.5px; color:var(--ink); opacity:.6; max-width:62%; overflow:hidden;
+  text-overflow:ellipsis; white-space:nowrap; direction:rtl; text-align:right;
+}
+.label{padding:14px 2px 0; display:flex; flex-direction:column; gap:7px; flex:1}
+.label h3{
+  font-family:Trirong,Georgia,serif; font-weight:500; font-size:1.15rem; line-height:1.3;
+  margin:0; letter-spacing:-.005em; text-wrap:balance;
+}
+.label h3 a{color:var(--ink); text-decoration:none; background-image:linear-gradient(var(--blue),var(--blue));
+  background-size:0 1px; background-repeat:no-repeat; background-position:0 100%; transition:background-size .2s}
+.label h3 a:hover{background-size:100% 1px; color:var(--blue)}
+.by{font-family:"IBM Plex Mono",monospace; font-size:11px; color:var(--muted);
+  overflow:hidden; text-overflow:ellipsis; white-space:nowrap}
+.desc{font-size:13.5px; line-height:1.6; color:var(--ink-soft); margin:0}
+.foot{
+  margin-top:auto; padding-top:11px; display:flex; align-items:center; gap:12px;
+  border-top:1px solid var(--rule-soft); font-family:"IBM Plex Mono",monospace; font-size:11px;
+}
+.foot a{color:var(--blue); text-decoration:none}
+.foot a:hover{text-decoration:underline}
+.foot .sep{color:var(--rule); }
+.rea{margin-left:auto; color:var(--muted); font-variant-numeric:tabular-nums}
+.warn{
+  display:inline-block; font-family:"IBM Plex Mono",monospace; font-size:10.5px;
+  color:var(--rose); border:1px solid currentColor; border-radius:999px; padding:1px 8px;
+}
+.cover--dead{cursor:default}
+
+.empty{padding:80px 0; text-align:center; color:var(--muted)}
+.empty p{margin:0 0 6px}
+
+/* ── ท้ายเล่ม ── */
+.colophon{margin-top:76px; border-top:1px solid var(--rule); padding:44px 0 72px}
+.colophon h2{
+  font-family:Trirong,Georgia,serif; font-weight:500; font-size:1.35rem; margin:0 0 22px;
+}
+.notes{display:grid; gap:22px 40px; grid-template-columns:repeat(auto-fit,minmax(270px,1fr)); max-width:980px}
+.note dt{
+  font-family:"IBM Plex Mono",monospace; font-size:11px; letter-spacing:.08em;
+  text-transform:uppercase; color:var(--rose); margin-bottom:5px;
+}
+.note dd{margin:0; font-size:13.5px; line-height:1.62; color:var(--ink-soft)}
+
+@media (max-width:640px){
+  .wrap{padding:0 18px}
+  .mast{padding:44px 0 32px}
+  .grid{grid-template-columns:repeat(auto-fill,minmax(220px,1fr)); gap:26px 18px}
+  .stat{padding-right:30px}
+}
+@media (prefers-reduced-motion:reduce){
+  *{transition:none !important; animation:none !important}
+}
+</style>
+
+<header class="mast">
+  <div class="wrap">
+    <p class="eyebrow">นิทรรศการออนไลน์ · รวบรวมจากคอมเมนต์สาธารณะ</p>
+    <h1>ผลงานที่คนไทยสร้างด้วย AI</h1>
+    <p class="deck">
+      โพสต์เดียวในกลุ่ม Facebook ชวนให้คนเอาผลงานที่สร้างด้วย AI มาแบ่งกัน
+      แล้วคอมเมนต์ก็ทะลักเป็นพันอัน หน้านี้คัดเฉพาะผลงานที่เจ้าของแนบลิงก์ไว้จริง
+      จัดเป็นหมวดหมู่ และเรียงเป็นแคตตาล็อกให้กดเข้าไปดูของจริงได้ทุกชิ้น
+    </p>
+    <p class="prov">
+      <span>ที่มา</span>
+      <a href="https://www.facebook.com/groups/1745892855948687/posts/2323047211566579/" target="_blank" rel="noopener">โพสต์ต้นทางบน Facebook</a>
+    </p>
+    <div class="stats">
+      <div class="stat"><b id="s-works">0</b><span>ผลงาน</span></div>
+      <div class="stat"><b id="s-rooms">0</b><span>หมวดหมู่</span></div>
+      <div class="stat"><b>1,329</b><span>คอมเมนต์ที่อ่าน</span></div>
+      <div class="stat"><b id="s-live">0</b><span>ลิงก์ที่กดเข้าได้</span></div>
+    </div>
+  </div>
+</header>
+
+<section class="index" aria-label="สารบัญนิทรรศการ">
+  <div class="wrap">
+    <h2>สารบัญนิทรรศการ</h2>
+    <div class="chips" id="chips"></div>
+  </div>
+</section>
+
+<nav class="bar" aria-label="ค้นหาและกรองผลงาน">
+  <div class="wrap">
+    <div class="bar-in">
+      <label class="search">
+        <svg width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+          <circle cx="7" cy="7" r="5" stroke="currentColor" stroke-width="1.5"/>
+          <path d="M11 11l4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+        <input id="q" type="search" placeholder="ค้นหาชื่อผลงาน คำอธิบาย หรือผู้สร้าง" autocomplete="off">
+      </label>
+      <select id="sort" aria-label="เรียงลำดับ">
+        <option value="room">เรียงตามหมวดหมู่</option>
+        <option value="rea">เรียงตามยอดรีแอ็กชัน</option>
+        <option value="name">เรียงตามชื่อผลงาน</option>
+      </select>
+      <button class="active-filter" id="clear" type="button" data-on="0">
+        <b id="clear-name"></b><span aria-hidden="true">&times;</span>
+      </button>
+      <p class="count" id="count"></p>
+    </div>
+  </div>
+</nav>
+
+<main class="wrap" id="main"></main>
+
+<footer class="colophon">
+  <div class="wrap">
+    <h2>ที่มาและข้อจำกัด</h2>
+    <dl class="notes">
+      <div class="note">
+        <dt>เก็บข้อมูลอย่างไร</dt>
+        <dd>ดึงคอมเมนต์จากหน้าโพสต์ด้วยสคริปต์ที่รันในเบราว์เซอร์ของเจ้าของบัญชีเอง
+            เพราะ Facebook ปิด Groups API สำหรับอ่านคอมเมนต์มาตั้งแต่ปี 2020
+            รันสามครั้งแล้วนำผลมารวมและตัดซ้ำด้วยรหัสคอมเมนต์ เหลือ 1,329 คอมเมนต์</dd>
+      </div>
+      <div class="note">
+        <dt>คัดเข้าแคตตาล็อกอย่างไร</dt>
+        <dd>เลือกเฉพาะคอมเมนต์ที่เจ้าของนำเสนอผลงานของตัวเองพร้อมลิงก์
+            คอมเมนต์หลักกับคอมเมนต์เสริมของคนเดียวกันถูกยุบเป็นผลงานเดียว
+            ส่วนคอมเมนต์ที่โชว์หลายผลงานคนละเรื่องถูกแยกเป็นคนละรายการ</dd>
+      </div>
+      <div class="note">
+        <dt>ภาพปกไม่ใช่ภาพหน้าจอจริง</dt>
+        <dd>เป็นภาพพิมพ์ริโซกราฟที่วาดขึ้นด้วยโค้ด โดยสุ่มลวดลายจากชื่อผลงานแต่ละชิ้น
+            ผลงานเดิมจะได้ลายเดิมเสมอ แต่ไม่ได้สะท้อนหน้าตาเว็บหรือแอปจริง
+            เพราะเครื่องที่ประมวลผลไม่มีสิทธิ์ออกอินเทอร์เน็ตไปเก็บภาพ</dd>
+      </div>
+      <div class="note">
+        <dt>ลิงก์ที่กดไม่ได้</dt>
+        <dd id="n-dead"></dd>
+      </div>
+      <div class="note">
+        <dt>ยอดรีแอ็กชัน</dt>
+        <dd>เป็นค่า ณ เวลาที่ดึงข้อมูล ไม่ใช่ค่าปัจจุบัน คอมเมนต์ที่ไม่มีรีแอ็กชันนับเป็นศูนย์</dd>
+      </div>
+      <div class="note">
+        <dt>ความครบถ้วน</dt>
+        <dd>คอมเมนต์ที่ Facebook ซ่อนหรือกรองเป็นสแปมจะไม่อยู่ในหน้าเว็บ จึงเก็บมาไม่ได้
+            ผลงานบางชิ้นอาจตกหล่น และคำอธิบายทั้งหมดสรุปจากข้อความที่เจ้าของเขียนเอง
+            ไม่ได้เข้าไปทดลองใช้จริง</dd>
+      </div>
+    </dl>
+  </div>
+</footer>
+
+<script>
+const DATA = {"rooms":["การเงิน & บัญชี","ธุรกิจ ร้านค้า & ระบบองค์กร","สุขภาพ การแพทย์ & กีฬา","สัตว์เลี้ยง","การศึกษา & ภาษา","เกม & ความบันเทิง","ท่องเที่ยว แผนที่ & ยานยนต์","ภัยพิบัติ ภาครัฐ & GIS","Productivity & เครื่องมือทำงาน","AI Agent & Developer Tools","สื่อ คอนเทนต์ & ครีเอทีฟ","ช้อปปิ้ง & การตลาด","กฎหมาย & สิทธิ","ไลฟ์สไตล์ ครอบครัว & ชุมชน","อสังหาริมทรัพย์","รวมผลงาน & อื่น ๆ"],"items":[{"no":1,"cat":"การเงิน & บัญชี","name":"Planndee","desc":"เว็บวางแผนเกษียณและภาษี สร้างจาก pain point ของผู้พัฒนาเอง เปิดให้ทดลองใช้และส่ง feedback ได้","author":"Seymour Guado","url":"https://planndee.com/","domain":"planndee.com","extras":["https://www.facebook.com/share/1JEAuXjV6F/"],"reactions":728,"ok":true,"src":"https://www.facebook.com/groups/1745892855948687/posts/2323047211566579/?comment_id=2323355138202453&__cft__[0]=AZZaHDg-RD2maDCWcmP_-Tz4xDExBUveh3Xdzown5w3r3yZYQ2FqPr7-75Y01kWETb5JKDHLDldoE2sg2lKIG95w3Rlpguo85OpFT65DiDoUauBihl_A2hQoxR-A50zQQXAc3QKkKSBmEd0k0Llcvzxw&__tn__=R]-R"},{"no":2,"cat":"การเงิน & บัญชี","name":"Vaulta Family Office","desc":"แอปจัดการสินทรัพย์ครอบครัวในที่เดียว บันทึกทรัพย์สิน เอกสารสำคัญ และความทรงจำ พร้อมกำหนดสัดส่วนมรดกผ่านแผนภาพ","author":"EarthDeFIRE","url":"https://vaulta.family/","domain":"vaulta.family","extras":["https://www.facebook.com/EarthDeFIRE/posts/pfbid0vCFBsHZBj4JwVRrFngHPXy8rKJ6w77a4vY6qoCxbh7gGsVNw5cpECnssJrsYuqakl"],"reactions":268,"ok":true,"src":"https://www.facebook.com/groups/1745892855948687/posts/2323047211566579/?comment_id=2323395231531777&__cft__[0]=AZZaHDg-RD2maDCWcmP_-Tz4xDExBUveh3Xdzown5w3r3yZYQ2FqPr7-75Y01kWETb5JKDHLDldoE2sg2lKIG95w3Rlpguo85OpFT65DiDoUauBihl_A2hQoxR-A50zQQXAc3QKkKSBmEd0k0Llcvzxw&__tn__=R]-R"},{"no":3,"cat":"การเงิน & บัญชี","name":"DooSpend","desc":"แอปบันทึกรายรับรายจ่ายสำหรับคนขี้เกียจจด เจ้าของระบุว่าใช้ Claude Code 98% ปรับ UI เอง 2%","author":"Apiwat Pengjam","url":"https://apps.apple.com/app/id6774424817","domain":"apps.apple.com","extras":[],"reactions":39,"ok":true,"src":"https://www.facebook.com/groups/1745892855948687/posts/2323047211566579/?comment_id=2323481428189824&__cft__[0]=AZZaHDg-RD2maDCWcmP_-Tz4xDExBUveh3Xdzown5w3r3yZYQ2FqPr7-75Y01kWETb5JKDHLDldoE2sg2lKIG95w3Rlpguo85OpFT65DiDoUauBihl_A2hQoxR-A50zQQXAc3QKkKSBmEd0k0Llcvzxw&__tn__=R]-R"},{"no":4,"cat":"การเงิน & บัญชี","name":"ระบบจัดการการเงินส่วนบุคคล (Saruth Volk)","desc":"เว็บ + LINE bot จัดการเงินส่วนบุคคล ลงทุน วางแผน จดรายรับรายจ่าย และดู DCA ใช้ได้ทั้ง desktop และมือถือ","author":"Saruth Volk","url":"https://lin.ee/YmHMOAja","domain":"lin.ee","extras":["https://www.facebook.com/share/p/17subazubt/","https://www.facebook.com/share/p/1Eu4RpJjfH/"],"reactions":36,"ok":true,"src":"https://www.facebook.com/groups/1745892855948687/posts/2323047211566579/?comment_id=2323355741535726&__cft__[0]=AZZaHDg-RD2maDCWcmP_-Tz4xDExBUveh3Xdzown5w3r3yZYQ2FqPr7-75Y01kWETb5JKDHLDldoE2sg2lKIG95w3Rlpguo85OpFT65DiDoUauBihl_A2hQoxR-A50zQQXAc3QKkKSBmEd0k0Llcvzxw&__tn__=R]-R"},{"no":5,"cat":"การเงิน & บัญชี","name":"แอปจดรายรับรายจ่าย (Trancient Circuit)","desc":"แอปจดรายรับรายจ่ายขนาดเล็กบน Android","author":"Trancient Circuit","url":"https://play.google.com/store/apps/details","domain":"play.google.com","extras":[],"reactions":22,"ok":false,"src":"https://www.facebook.com/groups/1745892855948687/posts/2323047211566579/?comment_id=2323348738203093&__cft__[0]=AZZaHDg-RD2maDCWcmP_-Tz4xDExBUveh3Xdzown5w3r3yZYQ2FqPr7-75Y01kWETb5JKDHLDldoE2sg2lKIG95w3Rlpguo85OpFT65DiDoUauBihl_A2hQoxR-A50zQQXAc3QKkKSBmEd0k0Llcvzxw&__tn__=R]-R"},{"no":6,"cat":"การเงิน & บัญชี","name":"Skill วิเคราะห์หุ้นและกองทุน REIT","desc":"Claude Skill ช่วยวิเคราะห์ประเมินราคาหุ้นและกองทุน REIT เปิดให้โหลดฟรี","author":"Chapter","url":"https://www.facebook.com/share/14oaY7JYB5Z/","domain":"facebook.com","extras":[],"reactions":15,"ok":true,"src":"https://www.facebook.com/groups/1745892855948687/posts/2323047211566579/?comment_id=2323396641531636&__cft__[0]=AZZaHDg-RD2maDCWcmP_-Tz4xDExBUveh3Xdzown5w3r3yZYQ2FqPr7-75Y01kWETb5JKDHLDldoE2sg2lKIG95w3Rlpguo85OpFT65DiDoUauBihl_A2hQoxR-A50zQQXAc3QKkKSBmEd0k0Llcvzxw&__tn__=R]-R"},{"no":7,"cat":"การเงิน & บัญชี","name":"ประกันง่าย (PraganEasy)","desc":"เว็บเปรียบเทียบและซื้อประกัน","author":"Pui Poompui","url":"https://www.praganeasy.com/","domain":"praganeasy.com","extras":[],"reactions":10,"ok":true,"src":"https://www.facebook.com/groups/1745892855948687/posts/2323047211566579/?comment_id=2323442674860366&__cft__[0]=AZZaHDg-RD2maDCWcmP_-Tz4xDExBUveh3Xdzown5w3r3yZYQ2FqPr7-75Y01kWETb5JKDHLDldoE2sg2lKIG95w3Rlpguo85OpFT65DiDoUauBihl_A2hQoxR-A50zQQXAc3QKkKSBmEd0k0Llcvzxw&__tn__=R]-R"},{"no":8,"cat":"การเงิน & บัญชี","name":"OpenLedger CFO","desc":"AI ที่ปรึกษาการเงินส่วนตัวแบบ Terminal + AI agent รันบน local เพื่อรักษาความเป็นส่วนตัว เปิด open source","author":"Phureewat Aphibansri","url":"https://github.com/phureewat29/openledger-cfo","domain":"github.com","extras":["https://openledger.sh"],"reactions":6,"ok":true,"src":"https://www.facebook.com/groups/1745892855948687/posts/2323047211566579/?comment_id=2323377938200173&__cft__[0]=AZZaHDg-RD2maDCWcmP_-Tz4xDExBUveh3Xdzown5w3r3yZYQ2FqPr7-75Y01kWETb5JKDHLDldoE2sg2lKIG95w3Rlpguo85OpFT65DiDoUauBihl_A2hQoxR-A50zQQXAc3QKkKSBmEd0k0Llcvzxw&__tn__=R]-R"},{"no":9,"cat":"การเงิน & บัญชี","name":"ตังใจ (Tangjai)","desc":"บันทึกรายรับ-รายจ่ายผ่าน LINE + LIFF มี Dashboard และ OCR อ่านสลิป สร้างด้วย Claude + Codex","author":"Patradanai Nakpimai","url":"https://www.tangjai.online","domain":"tangjai.online","extras":[],"reactions":4,"ok":true,"src":"https://www.facebook.com/groups/1745892855948687/posts/2323047211566579/?comment_id=2323649214839712&__cft__[0]=AZZaHDg-RD2maDCWcmP_-Tz4xDExBUveh3Xdzown5w3r3yZYQ2FqPr7-75Y01kWETb5JKDHLDldoE2sg2lKIG95w3Rlpguo85OpFT65DiDoUauBihl_A2hQoxR-A50zQQXAc3QKkKSBmEd0k0Llcvzxw&__tn__=R]-R"},{"no":10,"cat":"การเงิน & บัญชี","name":"ใบไหนดี (BaiNaiDee)","desc":"เว็บ + chatbot ช่วยหาโปรโมชั่นบัตรเครดิตข้ามค่าย และเปรียบเทียบบัตรตอนสมัคร","author":"Fluke Narathat","url":"https://bainaidee.com/","domain":"bainaidee.com","extras":[],"reactions":4,"ok":true,"src":"https://www.facebook.com/groups/1745892855948687/posts/2323047211566579/?comment_id=2323619068176060&__cft__[0]=AZZaHDg-RD2maDCWcmP_-Tz4xDExBUveh3Xdzown5w3r3yZYQ2FqPr7-75Y01kWETb5JKDHLDldoE2sg2lKIG95w3Rlpguo85OpFT65DiDoUauBihl_A2hQoxR-A50zQQXAc3QKkKSBmEd0k0Llcvzxw&__tn__=R]-R"},{"no":11,"cat":"การเงิน & บัญชี","name":"Birney","desc":"แอปบันทึกรายรับรายจ่ายที่สร้างด้วย Claude และให้ Claude นำขึ้น App Store ให้","author":"Pakphum Benjadechachai","url":"https://apps.apple.com/th/app/birney/id6764335697","domain":"apps.apple.com","extras":[],"reactions":2,"ok":true,"src":"https://www.facebook.com/groups/1745892855948687/posts/2323047211566579/?comment_id=2324216221449678&__cft__[0]=AZZaHDg-RD2maDCWcmP_-Tz4xDExBUveh3Xdzown5w3r3yZYQ2FqPr7-75Y01kWETb5JKDHLDldoE2sg2lKIG95w3Rlpguo85OpFT65DiDoUauBihl_A2hQoxR-A50zQQXAc3QKkKSBmEd0k0Llcvzxw&__tn__=R]-R"},{"no":12,"cat":"การเงิน & บัญชี","name":"Budgy","desc":"แอปบันทึกรายรับรายจ่าย สแกนสลิป import statement บัตรเครดิต และกำลังเพิ่มฟีเจอร์แชร์บิลกับเพื่อน","author":"Kwang Theeraporn","url":"https://budgy.life","domain":"budgy.life","extras":[],"reactions":2,"ok":true,"src":"https://www.facebook.com/groups/1745892855948687/posts/2323047211566579/?comment_id=2324640428073924&__cft__[0]=AZZaHDg-RD2maDCWcmP_-Tz4xDExBUveh3Xdzown5w3r3yZYQ2FqPr7-75Y01kWETb5JKDHLDldoE2sg2lKIG95w3Rlpguo85OpFT65DiDoUauBihl_A2hQoxR-A50zQQXAc3QKkKSBmEd0k0Llcvzxw&__tn__=R]-R"},{"no":13,"cat":"การเงิน & บัญชี","name":"PocketBird","desc":"แอปบันทึกรายรับรายจ่ายที่เน้นจัดการหนี้สินและวางแผนการเงิน (เฉพาะ iOS)","author":"Nattapong Pallawal","url":"https://pocketbirdapp.com","domain":"pocketbirdapp.com","extras":[],"reactions":2,"ok":true,"src":"https://www.facebook.com/groups/1745892855948687/posts/2323047211566579/?comment_id=2323747481496552&__cft__[0]=AZZaHDg-RD2maDCWcmP_-Tz4xDExBUveh3Xdzown5w3r3yZYQ2FqPr7-75Y01kWETb5JKDHLDldoE2sg2lKIG95w3Rlpguo85OpFT65DiDoUauBihl_A2hQoxR-A50zQQXAc3QKkKSBmEd0k0Llcvzxw&__tn__=R]-R"},{"no":14,"cat":"การเงิน & บัญชี","name":"Your Money 2026","desc":"เว็บแอปจัดการเงินส่วนบุคคล ตั้งรหัส PIN แล้วใช้งานได้ทันที เพิ่มไว้หน้าโฮมได้","author":"Parichat Salee","url":"https://your-money2026.tothemoon-gts2026.workers.dev/","domain":"your-money2026.tothemoon-gts2026.workers.dev","extras":[],"reactions":0,"ok":true,"src":"https://www.facebook.com/groups/1745892855948687/posts/2323047211566579/?comment_id=2323664628171504&reply_comment_id=2324520428085924&__cft__[0]=AZZaHDg-RD2maDCWcmP_-Tz4xDExBUveh3Xdzown5w3r3yZYQ2FqPr7-75Y01kWETb5JKDHLDldoE2sg2lKIG95w3Rlpguo85OpFT65DiDoUauBihl_A2hQoxR-A50zQQXAc3QKkKSBmEd0k0Llcvzxw&__tn__=R]-R"},{"no":15,"cat":"ธุรกิจ ร้านค้า & ระบบองค์กร","name":"Meysure","desc":"โปรแกรมถอดแบบก่อสร้าง (QS) พัฒนาราว 2 สัปดาห์ 700 commits","author":"Sirawit Mahanin","url":"https://meysure.com/","domain":"meysure.com","extras":["https://app.meysure.com/"],"reactions":296,"ok":true,"src":"https://www.facebook.com/groups/1745892855948687/posts/2323047211566579/?comment_id=2323330281538272&__cft__[0]=AZZaHDg-RD2maDCWcmP_-Tz4xDExBUveh3Xdzown5w3r3yZYQ2FqPr7-75Y01kWETb5JKDHLDldoE2sg2lKIG95w3Rlpguo85OpFT65DiDoUauBihl_A2hQoxR-A50zQQXAc3QKkKSBmEd0k0Llcvzxw&__tn__=R]-R"},{"no":16,"cat":"ธุรกิจ ร้านค้า & ระบบองค์กร","name":"RoostFarm","desc":"ระบบบริหารจัดการฟาร์มไก่ มอนิเตอร์ฟาร์ม จัดการอะไหล่ บันทึกงานประจำวัน และแจ้งเตือนผ่าน LINE","author":"Boonyasit Thanapasavat","url":"https://roostfarm.vercel.app","domain":"roostfarm.vercel.app","extras":[],"reactions":48,"ok":true,"src":"https://www.facebook.com/groups/1745892855948687/posts/2323047211566579/?comment_id=2323523858185581&__cft__[0]=AZZaHDg-RD2maDCWcmP_-Tz4xDExBUveh3Xdzown5w3r3yZYQ2FqPr7-75Y01kWETb5JKDHLDldoE2sg2lKIG95w3Rlpguo85OpFT65DiDoUauBihl_A2hQoxR-A50zQQXAc3QKkKSBmEd0k0Llcvzxw&__tn__=R]-R"},{"no":17,"cat":"ธุรกิจ ร้านค้า & ระบบองค์กร","name":"Do-Ngan","desc":"ระบบติดตามงาน ดูภาพรวมว่าใครในบริษัทมีงานอะไรและทำถึงไหน","author":"Apichart Khemawatcharayothin","url":"https://do-ngan.com/","domain":"do-ngan.com","extras":[],"reactions":41,"ok":true,"src":"https://www.facebook.com/groups/1745892855948687/posts/2323047211566579/?comment_id=2323388688199098&__cft__[0]=AZZaHDg-RD2maDCWcmP_-Tz4xDExBUveh3Xdzown5w3r3yZYQ2FqPr7-75Y01kWETb5JKDHLDldoE2sg2lKIG95w3Rlpguo85OpFT65DiDoUauBihl_A2hQoxR-A50zQQXAc3QKkKSBmEd0k0Llcvzxw&__tn__=R]-R"},{"no":18,"cat":"ธุรกิจ ร้านค้า & ระบบองค์กร","name":"CafeMates","desc":"แอปบริหารคาเฟ่และร้านอาหาร จัดเวรจัดกะ สต๊อกของสด การจัดตู้ขนม ระบบลา และแจ้งเหตุการณ์","author":"KuangGy Kulchotirat","url":"https://www.cafemates.app/","domain":"cafemates.app","extras":[],"reactions":13,"ok":true,"src":"https://www.facebook.com/groups/1745892855948687/posts/2323047211566579/?comment_id=2324031681468132&__cft__[0]=AZZaHDg-RD2maDCWcmP_-Tz4xDExBUveh3Xdzown5w3r3yZYQ2FqPr7-75Y01kWETb5JKDHLDldoE2sg2lKIG95w3Rlpguo85OpFT65DiDoUauBihl_A2hQoxR-A50zQQXAc3QKkKSBmEd0k0Llcvzxw&__tn__=R]-R"},{"no":19,"cat":"ธุรกิจ ร้านค้า & ระบบองค์กร","name":"SaaS Thai","desc":"ระบบที่ใช้งานจริงอยู่ เปิดให้ผู้อื่นมาร่วมได้ (เจ้าของไม่ได้ระบุรายละเอียด)","author":"Arkom Rattanasiri","url":"https://saasthai.com","domain":"saasthai.com","extras":[],"reactions":13,"ok":true,"src":"https://www.facebook.com/groups/1745892855948687/posts/2323047211566579/?comment_id=2323363648201602&__cft__[0]=AZZaHDg-RD2maDCWcmP_-Tz4xDExBUveh3Xdzown5w3r3yZYQ2FqPr7-75Y01kWETb5JKDHLDldoE2sg2lKIG95w3Rlpguo85OpFT65DiDoUauBihl_A2hQoxR-A50zQQXAc3QKkKSBmEd0k0Llcvzxw&__tn__=R]-R"},{"no":20,"cat":"ธุรกิจ ร้านค้า & ระบบองค์กร","name":"KP CRM","desc":"ระบบจัดการรถเช่า ปรับปรุงจากการใช้งานจริงของร้านกว่า 30 ร้าน","author":"Kkd Khathawut","url":"https://www.kpcrm.net/","domain":"kpcrm.net","extras":[],"reactions":9,"ok":true,"src":"https://www.facebook.com/groups/1745892855948687/posts/2323047211566579/?comment_id=2323516901519610&__cft__[0]=AZZaHDg-RD2maDCWcmP_-Tz4xDExBUveh3Xdzown5w3r3yZYQ2FqPr7-75Y01kWETb5JKDHLDldoE2sg2lKIG95w3Rlpguo85OpFT65DiDoUauBihl_A2hQoxR-A50zQQXAc3QKkKSBmEd0k0Llcvzxw&__tn__=R]-R"},{"no":21,"cat":"ธุรกิจ ร้านค้า & ระบบองค์กร","name":"UniJob Connect","desc":"แพลตฟอร์มจับคู่งานด้วย AI เชื่อมบริษัท/SME กับนักศึกษา เน้นงานสาย Hard Skills ที่ตรงกับสายการเรียน","author":"New Saharat","url":"https://unijobconnect.com","domain":"unijobconnect.com","extras":[],"reactions":8,"ok":true,"src":"https://www.facebook.com/groups/1745892855948687/posts/2323047211566579/?comment_id=2324219741449326&__cft__[0]=AZZaHDg-RD2maDCWcmP_-Tz4xDExBUveh3Xdzown5w3r3yZYQ2FqPr7-75Y01kWETb5JKDHLDldoE2sg2lKIG95w3Rlpguo85OpFT65DiDoUauBihl_A2hQoxR-A50zQQXAc3QKkKSBmEd0k0Llcvzxw&__tn__=R]-R"},{"no":22,"cat":"ธุรกิจ ร้านค้า & ระบบองค์กร","name":"คาร์แคร์จัดให้","desc":"ระบบบริหารจัดการร้านคาร์แคร์ ใช้ทั้งในร้านตัวเองและเปิดให้ตลาดใช้","author":"Rattanin Trimaneepong","url":"https://carcarejadhai.com/pricing","domain":"carcarejadhai.com","extras":[],"reactions":6,"ok":true,"src":"https://www.facebook.com/groups/1745892855948687/posts/2323047211566579/?comment_id=2323376828200284&__cft__[0]=AZZaHDg-RD2maDCWcmP_-Tz4xDExBUveh3Xdzown5w3r3yZYQ2FqPr7-75Y01kWETb5JKDHLDldoE2sg2lKIG95w3Rlpguo85OpFT65DiDoUauBihl_A2hQoxR-A50zQQXAc3QKkKSBmEd0k0Llcvzxw&__tn__=R]-R"},{"no":23,"cat":"ธุรกิจ ร้านค้า & ระบบองค์กร","name":"CafePOS","desc":"แอป POS บน iOS สำหรับร้านคาเฟ่และร้านอาหารขนาดเล็ก สั่งผ่าน QR ใช้ offline ได้ เชื่อมเครื่องพิมพ์ใบเสร็จ ระบบคิว พนักงาน และพร้อมเพย์","author":"Korranat Naruenatthanaset","url":"https://apps.apple.com/app/id6761293829","domain":"apps.apple.com","extras":[],"reactions":5,"ok":true,"src":"https://www.facebook.com/groups/1745892855948687/posts/2323047211566579/?comment_id=2324460751425225&__cft__[0]=AZZaHDg-RD2maDCWcmP_-Tz4xDExBUveh3Xdzown5w3r3yZYQ2FqPr7-75Y01kWETb5JKDHLDldoE2sg2lKIG95w3Rlpguo85OpFT65DiDoUauBihl_A2hQoxR-A50zQQXAc3QKkKSBmEd0k0Llcvzxw&__tn__=R]-R"},{"no":24,"cat":"ธุรกิจ ร้านค้า & ระบบองค์กร","name":"รวยจัด (RuayJud)","desc":"ระบบจดรายรับ-รายจ่ายสำหรับร้านอาหาร แจ้งเตือนราคาวัตถุดิบขึ้น-ลง คำนวณต้นทุนต่อจานและต่อสูตร ใช้ผ่าน LINE","author":"Supakit Tuptimthong","url":"https://www.ruayjud.com/","domain":"ruayjud.com","extras":[],"reactions":5,"ok":true,"src":"https://www.facebook.com/groups/1745892855948687/posts/2323047211566579/?comment_id=2323869571484343&__cft__[0]=AZZaHDg-RD2maDCWcmP_-Tz4xDExBUveh3Xdzown5w3r3yZYQ2FqPr7-75Y01kWETb5JKDHLDldoE2sg2lKIG95w3Rlpguo85OpFT65DiDoUauBihl_A2hQoxR-A50zQQXAc3QKkKSBmEd0k0Llcvzxw&__tn__=R]-R"},{"no":25,"cat":"ธุรกิจ ร้านค้า & ระบบองค์กร","name":"ระบบร้านอาหารครบวงจร (Chanin Pitiwong)","desc":"เมนู QR code สำหรับพนักงานและห้องครัว ระบบจดรายจ่าย และจดสต็อก","author":"Chanin Pitiwong","url":"https://fastwork.co/.../ninja.../qr-code-design-53134308","domain":"fastwork.co","extras":[],"reactions":4,"ok":false,"src":"https://www.facebook.com/groups/1745892855948687/posts/2323047211566579/?comment_id=2324686354735998&__cft__[0]=AZZaHDg-RD2maDCWcmP_-Tz4xDExBUveh3Xdzown5w3r3yZYQ2FqPr7-75Y01kWETb5JKDHLDldoE2sg2lKIG95w3Rlpguo85OpFT65DiDoUauBihl_A2hQoxR-A50zQQXAc3QKkKSBmEd0k0Llcvzxw&__tn__=R]-R"},{"no":26,"cat":"ธุรกิจ ร้านค้า & ระบบองค์กร","name":"NBIQ","desc":"เว็บแอปช่วยงานตัวแทนประกัน (เริ่มที่ AIA ก่อน) ตั้งแต่การนำเข้าข้อมูล พัฒนาโดยทีม 2 คน + Claude","author":"Sirapob Boss Catteeyothai","url":"https://nbi-q.com/codev?src=Boss","domain":"nbi-q.com","extras":[],"reactions":3,"ok":true,"src":"https://www.facebook.com/groups/1745892855948687/posts/2323047211566579/?comment_id=2323963621474938&__cft__[0]=AZZaHDg-RD2maDCWcmP_-Tz4xDExBUveh3Xdzown5w3r3yZYQ2FqPr7-75Y01kWETb5JKDHLDldoE2sg2lKIG95w3Rlpguo85OpFT65DiDoUauBihl_A2hQoxR-A50zQQXAc3QKkKSBmEd0k0Llcvzxw&__tn__=R]-R"},{"no":27,"cat":"ธุรกิจ ร้านค้า & ระบบองค์กร","name":"Pixels Studio","desc":"Web app คำนวณการใช้ไฟจาก Solar cell ออกแบบ plan และคำนวณการใช้ memory ของ CCTV","author":"Thanabadin Aussawatmeta","url":"https://pixels-studiodemo.netlify.app/","domain":"pixels-studiodemo.netlify.app","extras":[],"reactions":3,"ok":true,"src":"https://www.facebook.com/groups/1745892855948687/posts/2323047211566579/?comment_id=2324418341429466&__cft__[0]=AZZaHDg-RD2maDCWcmP_-Tz4xDExBUveh3Xdzown5w3r3yZYQ2FqPr7-75Y01kWETb5JKDHLDldoE2sg2lKIG95w3Rlpguo85OpFT65DiDoUauBihl_A2hQoxR-A50zQQXAc3QKkKSBmEd0k0Llcvzxw&__tn__=R]-R"},{"no":28,"cat":"ธุรกิจ ร้านค้า & ระบบองค์กร","name":"Supplier Risk Model","desc":"โมเดลประเมินความเสี่ยงซัพพลายเออร์","author":"Mo Panupan","url":"https://supplier-risk-model.pages.dev/","domain":"supplier-risk-model.pages.dev","extras":[],"reactions":2,"ok":true,"src":"https://www.facebook.com/groups/1745892855948687/posts/2323047211566579/?comment_id=2324369121434388&__cft__[0]=AZZaHDg-RD2maDCWcmP_-Tz4xDExBUveh3Xdzown5w3r3yZYQ2FqPr7-75Y01kWETb5JKDHLDldoE2sg2lKIG95w3Rlpguo85OpFT65DiDoUauBihl_A2hQoxR-A50zQQXAc3QKkKSBmEd0k0Llcvzxw&__tn__=R]-R"},{"no":29,"cat":"ธุรกิจ ร้านค้า & ระบบองค์กร","name":"UP Web WMS Demo","desc":"ระบบ WMS (บริหารคลังสินค้า) ที่เขียนเองเพราะไม่อยากรอทีมไอที เน้นข้อมูล realtime","author":"UP Yng","url":"https://wuttinuntn-design.github.io/upweb-dev/","domain":"wuttinuntn-design.github.io","extras":[],"reactions":2,"ok":true,"src":"https://www.facebook.com/groups/1745892855948687/posts/2323047211566579/?comment_id=2323890298148937&__cft__[0]=AZZaHDg-RD2maDCWcmP_-Tz4xDExBUveh3Xdzown5w3r3yZYQ2FqPr7-75Y01kWETb5JKDHLDldoE2sg2lKIG95w3Rlpguo85OpFT65DiDoUauBihl_A2hQoxR-A50zQQXAc3QKkKSBmEd0k0Llcvzxw&__tn__=R]-R"},{"no":30,"cat":"ธุรกิจ ร้านค้า & ระบบองค์กร","name":"VelyPOS Pet","desc":"ระบบ POS แบบออฟไลน์สำหรับร้านขายอาหารสัตว์","author":"Tod's EN","url":"https://velysoft.com/VelyPOSPet","domain":"velysoft.com","extras":[],"reactions":2,"ok":true,"src":"https://www.facebook.com/groups/1745892855948687/posts/2323047211566579/?comment_id=2324167644787869&__cft__[0]=AZZaHDg-RD2maDCWcmP_-Tz4xDExBUveh3Xdzown5w3r3yZYQ2FqPr7-75Y01kWETb5JKDHLDldoE2sg2lKIG95w3Rlpguo85OpFT65DiDoUauBihl_A2hQoxR-A50zQQXAc3QKkKSBmEd0k0Llcvzxw&__tn__=R]-R"},{"no":31,"cat":"ธุรกิจ ร้านค้า & ระบบองค์กร","name":"ระบบจัดการร้านค้าครบวงจร (New Saharat)","desc":"ระบบดึงข้อมูลออเดอร์อัตโนมัติเมื่อปิดการขายผ่านแชท สรุปยอดขายรายเดือน/รายปี พร้อมติดตามสถานะจัดส่ง","author":"New Saharat","url":"https://www.facebook.com/yinzhangwenfang","domain":"facebook.com","extras":[],"reactions":2,"ok":true,"src":"https://www.facebook.com/groups/1745892855948687/posts/2323047211566579/?comment_id=2324235541447746&__cft__[0]=AZZaHDg-RD2maDCWcmP_-Tz4xDExBUveh3Xdzown5w3r3yZYQ2FqPr7-75Y01kWETb5JKDHLDldoE2sg2lKIG95w3Rlpguo85OpFT65DiDoUauBihl_A2hQoxR-A50zQQXAc3QKkKSBmEd0k0Llcvzxw&__tn__=R]-R"},{"no":32,"cat":"ธุรกิจ ร้านค้า & ระบบองค์กร","name":"TechGear","desc":"ระบบลงทะเบียนและเช็คอินงานประชุม/Event/Exhibition รองรับ QR, NFC, สแกนใบหน้า, Payment Gateway, โค้ดส่วนลด และ Early Bird","author":"Gear Ceramics","url":"https://techgear.asia","domain":"techgear.asia","extras":["https://techgear.asia/interprex","https://techgear.asia/photo"],"reactions":0,"ok":true,"src":"https://www.facebook.com/groups/1745892855948687/permalink/2323047211566579/?comment_id=2325034211367879&__cft__[0]=AZZaHDg-RD2maDCWcmP_-Tz4xDExBUveh3Xdzown5w3r3yZYQ2FqPr7-75Y01kWETb5JKDHLDldoE2sg2lKIG95w3Rlpguo85OpFT65DiDoUauBihl_A2hQoxR-A50zQQXAc3QKkKSBmEd0k0Llcvzxw&__tn__=R]-R"},{"no":33,"cat":"สุขภาพ การแพทย์ & กีฬา","name":"MeeDeeThai","desc":"เว็บคำนวณและแปลผลตรวจสุขภาพ","author":"Apiwat Augkaros","url":"https://medeethai.com/","domain":"medeethai.com","extras":[],"reactions":147,"ok":true,"src":"https://www.facebook.com/groups/1745892855948687/posts/2323047211566579/?comment_id=2323348128203154&__cft__[0]=AZZaHDg-RD2maDCWcmP_-Tz4xDExBUveh3Xdzown5w3r3yZYQ2FqPr7-75Y01kWETb5JKDHLDldoE2sg2lKIG95w3Rlpguo85OpFT65DiDoUauBihl_A2hQoxR-A50zQQXAc3QKkKSBmEd0k0Llcvzxw&__tn__=R]-R"},{"no":34,"cat":"สุขภาพ การแพทย์ & กีฬา","name":"Solfeggio Soundscape","desc":"แอปฟังความถี่ Solfeggio เพื่อพักจิตใจ ปรับได้ 1-22,000 Hz ตั้งเวลาและบันทึกค่าที่ชอบได้","author":"Siriphong Pakaratsakun","url":"https://drive.google.com/.../1bnGYrhSGol0qKYFI92gv4SDZJkI","domain":"drive.google.com","extras":[],"reactions":52,"ok":false,"src":"https://www.facebook.com/groups/1745892855948687/posts/2323047211566579/?comment_id=2323399904864643&__cft__[0]=AZZaHDg-RD2maDCWcmP_-Tz4xDExBUveh3Xdzown5w3r3yZYQ2FqPr7-75Y01kWETb5JKDHLDldoE2sg2lKIG95w3Rlpguo85OpFT65DiDoUauBihl_A2hQoxR-A50zQQXAc3QKkKSBmEd0k0Llcvzxw&__tn__=R]-R"},{"no":35,"cat":"สุขภาพ การแพทย์ & กีฬา","name":"Dog Bite Me","desc":"เว็บประเมินความเสี่ยงจากหมากัด และคำนวณว่าต้องรับวัคซีนกี่เข็ม","author":"Jab Kluay","url":"https://dog-bite-me.vercel.app/","domain":"dog-bite-me.vercel.app","extras":[],"reactions":17,"ok":true,"src":"https://www.facebook.com/groups/1745892855948687/posts/2323047211566579/?comment_id=2323680848169882&__cft__[0]=AZZaHDg-RD2maDCWcmP_-Tz4xDExBUveh3Xdzown5w3r3yZYQ2FqPr7-75Y01kWETb5JKDHLDldoE2sg2lKIG95w3Rlpguo85OpFT65DiDoUauBihl_A2hQoxR-A50zQQXAc3QKkKSBmEd0k0Llcvzxw&__tn__=R]-R"},{"no":36,"cat":"สุขภาพ การแพทย์ & กีฬา","name":"Punn Baby Pumping","desc":"แอปติดตามการปั๊มนมและดูแลทารก ทำคนเดียว 100%","author":"Teerat Pipitcharulerd","url":"https://apps.apple.com/app/id6762541359","domain":"apps.apple.com","extras":["https://play.google.com/store/apps/details"],"reactions":15,"ok":true,"src":"https://www.facebook.com/groups/1745892855948687/posts/2323047211566579/?comment_id=2323459864858647&__cft__[0]=AZZaHDg-RD2maDCWcmP_-Tz4xDExBUveh3Xdzown5w3r3yZYQ2FqPr7-75Y01kWETb5JKDHLDldoE2sg2lKIG95w3Rlpguo85OpFT65DiDoUauBihl_A2hQoxR-A50zQQXAc3QKkKSBmEd0k0Llcvzxw&__tn__=R]-R"},{"no":37,"cat":"สุขภาพ การแพทย์ & กีฬา","name":"BetaScan","desc":"แอปวิเคราะห์ว่าผาจำลองแต่ละเส้นทางปีนอย่างไร สร้างโมเดล ML ขึ้นมาเอง","author":"Warat Wongmaneekit","url":"https://betascan.app/","domain":"betascan.app","extras":[],"reactions":7,"ok":true,"src":"https://www.facebook.com/groups/1745892855948687/posts/2323047211566579/?comment_id=2323763664828267&__cft__[0]=AZZaHDg-RD2maDCWcmP_-Tz4xDExBUveh3Xdzown5w3r3yZYQ2FqPr7-75Y01kWETb5JKDHLDldoE2sg2lKIG95w3Rlpguo85OpFT65DiDoUauBihl_A2hQoxR-A50zQQXAc3QKkKSBmEd0k0Llcvzxw&__tn__=R]-R"},{"no":38,"cat":"สุขภาพ การแพทย์ & กีฬา","name":"GlowPace","desc":"แอปสำหรับคนทำ skin cycling เตือนว่าวันไหนต้องทาสกินแคร์ตัวใด","author":"DJdai Yodsapon","url":"https://glowpace.netlify.app/","domain":"glowpace.netlify.app","extras":[],"reactions":6,"ok":true,"src":"https://www.facebook.com/groups/1745892855948687/posts/2323047211566579/?comment_id=2323769288161038&__cft__[0]=AZZaHDg-RD2maDCWcmP_-Tz4xDExBUveh3Xdzown5w3r3yZYQ2FqPr7-75Y01kWETb5JKDHLDldoE2sg2lKIG95w3Rlpguo85OpFT65DiDoUauBihl_A2hQoxR-A50zQQXAc3QKkKSBmEd0k0Llcvzxw&__tn__=R]-R"},{"no":39,"cat":"สุขภาพ การแพทย์ & กีฬา","name":"JaiFlow","desc":"แอปติดตามอารมณ์ มีระบบเกมช่วยให้บันทึกอารมณ์ทุกวันสนุกขึ้น สร้างเกาะและเก็บสตรีค","author":"Sorrawich Yooboon","url":"https://www.jaiflow.app/","domain":"jaiflow.app","extras":[],"reactions":6,"ok":true,"src":"https://www.facebook.com/groups/1745892855948687/posts/2323047211566579/?comment_id=2324490261422274&__cft__[0]=AZZaHDg-RD2maDCWcmP_-Tz4xDExBUveh3Xdzown5w3r3yZYQ2FqPr7-75Y01kWETb5JKDHLDldoE2sg2lKIG95w3Rlpguo85OpFT65DiDoUauBihl_A2hQoxR-A50zQQXAc3QKkKSBmEd0k0Llcvzxw&__tn__=R]-R"},{"no":40,"cat":"สุขภาพ การแพทย์ & กีฬา","name":"CourtBuddy TH","desc":"เว็บหาก๊วนเทนนิสและพิคเคิลบอล","author":"Puttasak Tantisuttivet","url":"https://www.courtbuddy-th.com/","domain":"courtbuddy-th.com","extras":[],"reactions":5,"ok":true,"src":"https://www.facebook.com/groups/1745892855948687/posts/2323047211566579/?comment_id=2324257541445546&__cft__[0]=AZZaHDg-RD2maDCWcmP_-Tz4xDExBUveh3Xdzown5w3r3yZYQ2FqPr7-75Y01kWETb5JKDHLDldoE2sg2lKIG95w3Rlpguo85OpFT65DiDoUauBihl_A2hQoxR-A50zQQXAc3QKkKSBmEd0k0Llcvzxw&__tn__=R]-R"},{"no":41,"cat":"สุขภาพ การแพทย์ & กีฬา","name":"Running Planner","desc":"เว็บสร้างตารางซ้อมวิ่งด้วยตัวเองสำหรับคนไม่อยากจ้างโค้ช","author":"Moth Watchirapong","url":"https://runningplaner.netlify.app/","domain":"runningplaner.netlify.app","extras":[],"reactions":5,"ok":true,"src":"https://www.facebook.com/groups/1745892855948687/posts/2323047211566579/?comment_id=2323663931504907&__cft__[0]=AZZaHDg-RD2maDCWcmP_-Tz4xDExBUveh3Xdzown5w3r3yZYQ2FqPr7-75Y01kWETb5JKDHLDldoE2sg2lKIG95w3Rlpguo85OpFT65DiDoUauBihl_A2hQoxR-A50zQQXAc3QKkKSBmEd0k0Llcvzxw&__tn__=R]-R"},{"no":42,"cat":"สุขภาพ การแพทย์ & กีฬา","name":"NubMed","desc":"เครื่องมือช่วยระบบรับคืนยา ดูแลยาผู้ป่วย และจัดระบบเบิกจ่ายสต๊อกยา","author":"Soom Suttikeat","url":"https://nubmed.org/index.html","domain":"nubmed.org","extras":[],"reactions":3,"ok":true,"src":"https://www.facebook.com/groups/1745892855948687/posts/2323047211566579/?comment_id=2324099981461302&__cft__[0]=AZZaHDg-RD2maDCWcmP_-Tz4xDExBUveh3Xdzown5w3r3yZYQ2FqPr7-75Y01kWETb5JKDHLDldoE2sg2lKIG95w3Rlpguo85OpFT65DiDoUauBihl_A2hQoxR-A50zQQXAc3QKkKSBmEd0k0Llcvzxw&__tn__=R]-R"},{"no":43,"cat":"สุขภาพ การแพทย์ & กีฬา","name":"สุราษฎร์ธานีเกมส์","desc":"เว็บจัดการข้อมูลนักกีฬาและรวมข้อมูลการเดินทาง/สถานที่ ในการแข่งขันกีฬาเยาวชนแห่งชาติครั้งที่ 41","author":"Chadjen Wongvanich","url":"https://suratthanigame.vercel.app/","domain":"suratthanigame.vercel.app","extras":[],"reactions":3,"ok":true,"src":"https://www.facebook.com/groups/1745892855948687/posts/2323047211566579/?comment_id=2323345774870056&__cft__[0]=AZZaHDg-RD2maDCWcmP_-Tz4xDExBUveh3Xdzown5w3r3yZYQ2FqPr7-75Y01kWETb5JKDHLDldoE2sg2lKIG95w3Rlpguo85OpFT65DiDoUauBihl_A2hQoxR-A50zQQXAc3QKkKSBmEd0k0Llcvzxw&__tn__=R]-R"},{"no":44,"cat":"สุขภาพ การแพทย์ & กีฬา","name":"Vision by SV Academy","desc":"แอปวิเคราะห์ personal color ด้วย AI ผลงานของเด็กอายุ 10 ปี ได้ลงนิตยสาร Harper's Bazaar","author":"Cody Mairin","url":"https://vision.sv-academy.org/","domain":"vision.sv-academy.org","extras":["https://harpersbazaar.co.th/.../siliconvalleyacademy.../"],"reactions":2,"ok":true,"src":"https://www.facebook.com/groups/1745892855948687/posts/2323047211566579/?comment_id=2324732464731387&__cft__[0]=AZZaHDg-RD2maDCWcmP_-Tz4xDExBUveh3Xdzown5w3r3yZYQ2FqPr7-75Y01kWETb5JKDHLDldoE2sg2lKIG95w3Rlpguo85OpFT65DiDoUauBihl_A2hQoxR-A50zQQXAc3QKkKSBmEd0k0Llcvzxw&__tn__=R]-R"},{"no":45,"cat":"สุขภาพ การแพทย์ & กีฬา","name":"Balance App","desc":"เว็บแอปประเมินการทรงตัวเบื้องต้นสำหรับบุคคลทั่วไป","author":"Muthita Giaw","url":"https://mnkoratpt044.github.io/balance-app/","domain":"mnkoratpt044.github.io","extras":[],"reactions":1,"ok":true,"src":"https://www.facebook.com/groups/1745892855948687/posts/2323047211566579/?comment_id=2323486628189304&reply_comment_id=2324302658107701&__cft__[0]=AZZaHDg-RD2maDCWcmP_-Tz4xDExBUveh3Xdzown5w3r3yZYQ2FqPr7-75Y01kWETb5JKDHLDldoE2sg2lKIG95w3Rlpguo85OpFT65DiDoUauBihl_A2hQoxR-A50zQQXAc3QKkKSBmEd0k0Llcvzxw&__tn__=R]-R"},{"no":46,"cat":"สัตว์เลี้ยง","name":"Lukkhon (ลูกขน)","desc":"แอปดูแลสุขภาพสัตว์เลี้ยง บันทึกสมุดสุขภาพ น้ำหนัก ประวัติแพ้ยา อาการประจำวัน และเตือนวันวัคซีน/ยากันเห็บ","author":"Patchara Kantha","url":"https://apps.apple.com/th/app/lukkhon-ai/id6789553353","domain":"apps.apple.com","extras":[],"reactions":41,"ok":true,"src":"https://www.facebook.com/groups/1745892855948687/posts/2323047211566579/?comment_id=2323607184843915&__cft__[0]=AZZaHDg-RD2maDCWcmP_-Tz4xDExBUveh3Xdzown5w3r3yZYQ2FqPr7-75Y01kWETb5JKDHLDldoE2sg2lKIG95w3Rlpguo85OpFT65DiDoUauBihl_A2hQoxR-A50zQQXAc3QKkKSBmEd0k0Llcvzxw&__tn__=R]-R"},{"no":47,"cat":"สัตว์เลี้ยง","name":"PetButler","desc":"ระบบช่วยดูแลน้องหมา บันทึกพฤติกรรม การทานยา ไลฟ์สไตล์ และ export ให้สัตวแพทย์ดูได้","author":"Nattha Marayart","url":"https://petbutler.web.app","domain":"petbutler.web.app","extras":[],"reactions":1,"ok":true,"src":"https://www.facebook.com/groups/1745892855948687/posts/2323047211566579/?comment_id=2324601881411112&__cft__[0]=AZZaHDg-RD2maDCWcmP_-Tz4xDExBUveh3Xdzown5w3r3yZYQ2FqPr7-75Y01kWETb5JKDHLDldoE2sg2lKIG95w3Rlpguo85OpFT65DiDoUauBihl_A2hQoxR-A50zQQXAc3QKkKSBmEd0k0Llcvzxw&__tn__=R]-R"},{"no":48,"cat":"การศึกษา & ภาษา","name":"U-Prep Academy","desc":"เว็บทำข้อสอบเสมือนจริง รองรับ TOEIC, IELTS และสนามสอบอื่น ๆ มีให้ทดลองทำฟรี","author":"Taritsorn Sornprohm","url":"https://uprepacademy.com","domain":"uprepacademy.com","extras":[],"reactions":93,"ok":true,"src":"https://www.facebook.com/groups/1745892855948687/posts/2323047211566579/?comment_id=2323867398151227&__cft__[0]=AZZaHDg-RD2maDCWcmP_-Tz4xDExBUveh3Xdzown5w3r3yZYQ2FqPr7-75Y01kWETb5JKDHLDldoE2sg2lKIG95w3Rlpguo85OpFT65DiDoUauBihl_A2hQoxR-A50zQQXAc3QKkKSBmEd0k0Llcvzxw&__tn__=R]-R"},{"no":49,"cat":"การศึกษา & ภาษา","name":"สนสนุก (SonSanook)","desc":"เว็บเกมสื่อการสอน มีเกมปลูกผักให้เล่นโดยไม่ต้องสมัคร สร้างด้วย Claude + Codex","author":"Draft Draft Art","url":"https://sonsanook.com","domain":"sonsanook.com","extras":["https://sonsanook.com/game/little-farm"],"reactions":52,"ok":true,"src":"https://www.facebook.com/groups/1745892855948687/posts/2323047211566579/?comment_id=2323545651516735&__cft__[0]=AZZaHDg-RD2maDCWcmP_-Tz4xDExBUveh3Xdzown5w3r3yZYQ2FqPr7-75Y01kWETb5JKDHLDldoE2sg2lKIG95w3Rlpguo85OpFT65DiDoUauBihl_A2hQoxR-A50zQQXAc3QKkKSBmEd0k0Llcvzxw&__tn__=R]-R"},{"no":50,"cat":"การศึกษา & ภาษา","name":"GrowGenius Study","desc":"แพลตฟอร์มการเรียน (เจ้าของไม่ได้ระบุรายละเอียด)","author":"Kosin Sangtong","url":"https://study.growgenius.co.th","domain":"study.growgenius.co.th","extras":[],"reactions":20,"ok":true,"src":"https://www.facebook.com/groups/1745892855948687/posts/2323047211566579/?comment_id=2323743784830255&__cft__[0]=AZZaHDg-RD2maDCWcmP_-Tz4xDExBUveh3Xdzown5w3r3yZYQ2FqPr7-75Y01kWETb5JKDHLDldoE2sg2lKIG95w3Rlpguo85OpFT65DiDoUauBihl_A2hQoxR-A50zQQXAc3QKkKSBmEd0k0Llcvzxw&__tn__=R]-R"},{"no":51,"cat":"การศึกษา & ภาษา","name":"Rusheng 2D","desc":"เกมฝึกซิ่งรถควบคู่กับการฝึกภาษาสำหรับเด็ก เล่นผ่านเว็บบน PC หรือมือถือ","author":"Siwarut Jaruthitinun","url":"https://rusheng-2d-7391.web.app/","domain":"rusheng-2d-7391.web.app","extras":[],"reactions":20,"ok":true,"src":"https://www.facebook.com/groups/1745892855948687/posts/2323047211566579/?comment_id=2323381584866475&__cft__[0]=AZZaHDg-RD2maDCWcmP_-Tz4xDExBUveh3Xdzown5w3r3yZYQ2FqPr7-75Y01kWETb5JKDHLDldoE2sg2lKIG95w3Rlpguo85OpFT65DiDoUauBihl_A2hQoxR-A50zQQXAc3QKkKSBmEd0k0Llcvzxw&__tn__=R]-R"},{"no":52,"cat":"การศึกษา & ภาษา","name":"Iroiro Japan","desc":"แอปฝึกอ่านภาษาญี่ปุ่นวันละนิด มีทั้ง iOS และ Android","author":"Teerawat Vanasapdamrong","url":"https://apps.apple.com/app/iroiro-japan/id6780112187","domain":"apps.apple.com","extras":["https://play.google.com/store/apps/details"],"reactions":10,"ok":true,"src":"https://www.facebook.com/groups/1745892855948687/posts/2323047211566579/?comment_id=2324131008124866&__cft__[0]=AZZaHDg-RD2maDCWcmP_-Tz4xDExBUveh3Xdzown5w3r3yZYQ2FqPr7-75Y01kWETb5JKDHLDldoE2sg2lKIG95w3Rlpguo85OpFT65DiDoUauBihl_A2hQoxR-A50zQQXAc3QKkKSBmEd0k0Llcvzxw&__tn__=R]-R"},{"no":53,"cat":"การศึกษา & ภาษา","name":"PolySub","desc":"ส่วนขยายวางคำแปลคู่กับซับเดิมแบบเรียลไทม์บน YouTube, Netflix และเว็บทั่วไป เหมาะกับการดูเพื่อเรียนภาษา","author":"Arthit Napradit","url":"https://getpolysub.com/","domain":"getpolysub.com","extras":["https://chromewebstore.google.com/.../liacbbibephikadgcao"],"reactions":4,"ok":true,"src":"https://www.facebook.com/groups/1745892855948687/posts/2323047211566579/?comment_id=2324382878099679&__cft__[0]=AZZaHDg-RD2maDCWcmP_-Tz4xDExBUveh3Xdzown5w3r3yZYQ2FqPr7-75Y01kWETb5JKDHLDldoE2sg2lKIG95w3Rlpguo85OpFT65DiDoUauBihl_A2hQoxR-A50zQQXAc3QKkKSBmEd0k0Llcvzxw&__tn__=R]-R"},{"no":54,"cat":"การศึกษา & ภาษา","name":"Future Workforce English","desc":"แอปเรียนภาษาอังกฤษด้วย AI","author":"Bunchanok Puranamaneewiwat","url":"https://futureworkforce.ajbankenglishkickstart.workers.de","domain":"futureworkforce.ajbankenglishkickstart.workers.de","extras":[],"reactions":3,"ok":false,"src":"https://www.facebook.com/groups/1745892855948687/posts/2323047211566579/?comment_id=2324724278065539&__cft__[0]=AZZaHDg-RD2maDCWcmP_-Tz4xDExBUveh3Xdzown5w3r3yZYQ2FqPr7-75Y01kWETb5JKDHLDldoE2sg2lKIG95w3Rlpguo85OpFT65DiDoUauBihl_A2hQoxR-A50zQQXAc3QKkKSBmEd0k0Llcvzxw&__tn__=R]-R"},{"no":55,"cat":"การศึกษา & ภาษา","name":"WorldApex TH","desc":"แพลตฟอร์มคลังวรรณกรรมโลก public domain แปลเป็นภาษาไทยกว่า 10,000 เรื่อง สร้างด้วย Claude Code (ใช้ Fable 5 วางแผนและดีบัก)","author":"อาจุ้ย ฟาร์มเต่าจักรพรรดิ","url":"https://th.worldapex.ai","domain":"th.worldapex.ai","extras":[],"reactions":3,"ok":true,"src":"https://www.facebook.com/groups/1745892855948687/posts/2323047211566579/?comment_id=2324530544751579&__cft__[0]=AZZaHDg-RD2maDCWcmP_-Tz4xDExBUveh3Xdzown5w3r3yZYQ2FqPr7-75Y01kWETb5JKDHLDldoE2sg2lKIG95w3Rlpguo85OpFT65DiDoUauBihl_A2hQoxR-A50zQQXAc3QKkKSBmEd0k0Llcvzxw&__tn__=R]-R"},{"no":56,"cat":"การศึกษา & ภาษา","name":"A1 Deutsch Training","desc":"เว็บฝึกทำข้อสอบภาษาเยอรมันระดับ A1 ใกล้เคียงข้อสอบจริง ผู้พัฒนายืนยันผลด้วยการไปสอบจริงที่ Goethe","author":"Namnueng Jantarawat","url":"https://a1deutschtraining.com/","domain":"a1deutschtraining.com","extras":[],"reactions":2,"ok":true,"src":"https://www.facebook.com/groups/1745892855948687/posts/2323047211566579/?comment_id=2323887628149204&__cft__[0]=AZZaHDg-RD2maDCWcmP_-Tz4xDExBUveh3Xdzown5w3r3yZYQ2FqPr7-75Y01kWETb5JKDHLDldoE2sg2lKIG95w3Rlpguo85OpFT65DiDoUauBihl_A2hQoxR-A50zQQXAc3QKkKSBmEd0k0Llcvzxw&__tn__=R]-R"},{"no":57,"cat":"การศึกษา & ภาษา","name":"TimeMap History","desc":"เครื่องมือแสดงเหตุการณ์ประวัติศาสตร์บนแผนที่ตามเวลา","author":"Mo Panupan","url":"https://timemaphistory.netlify.app/","domain":"timemaphistory.netlify.app","extras":[],"reactions":2,"ok":true,"src":"https://www.facebook.com/groups/1745892855948687/posts/2323047211566579/?comment_id=2324369121434388&__cft__[0]=AZZaHDg-RD2maDCWcmP_-Tz4xDExBUveh3Xdzown5w3r3yZYQ2FqPr7-75Y01kWETb5JKDHLDldoE2sg2lKIG95w3Rlpguo85OpFT65DiDoUauBihl_A2hQoxR-A50zQQXAc3QKkKSBmEd0k0Llcvzxw&__tn__=R]-R"},{"no":58,"cat":"เกม & ความบันเทิง","name":"GridNova Daily Sudoku","desc":"เกม Sudoku พร้อมระบบจัดอันดับแข่งขัน","author":"GridNova - Daily Sudoku","url":"https://gridnova.pages.dev","domain":"gridnova.pages.dev","extras":[],"reactions":344,"ok":true,"src":"https://www.facebook.com/groups/1745892855948687/posts/2323047211566579/?comment_id=2323642208173746&__cft__[0]=AZZaHDg-RD2maDCWcmP_-Tz4xDExBUveh3Xdzown5w3r3yZYQ2FqPr7-75Y01kWETb5JKDHLDldoE2sg2lKIG95w3Rlpguo85OpFT65DiDoUauBihl_A2hQoxR-A50zQQXAc3QKkKSBmEd0k0Llcvzxw&__tn__=R]-R"},{"no":59,"cat":"เกม & ความบันเทิง","name":"Untitled (Counter Strike)","desc":"เกมแนว Counter Strike ทั้งเกมบนเว็บ","author":"Kobkrit Viriyayudhakorn","url":"https://untitled.kobkrit.com/","domain":"untitled.kobkrit.com","extras":[],"reactions":168,"ok":true,"src":"https://www.facebook.com/groups/1745892855948687/posts/2323047211566579/?comment_id=2323469721524328&__cft__[0]=AZZaHDg-RD2maDCWcmP_-Tz4xDExBUveh3Xdzown5w3r3yZYQ2FqPr7-75Y01kWETb5JKDHLDldoE2sg2lKIG95w3Rlpguo85OpFT65DiDoUauBihl_A2hQoxR-A50zQQXAc3QKkKSBmEd0k0Llcvzxw&__tn__=R]-R"},{"no":60,"cat":"เกม & ความบันเทิง","name":"Wuxia RPG","desc":"เกม Idle แนวกำลังภายใน ต่อสู้แบบ offline พร้อม Quiz ค้นหาตัวตน","author":"New Tippayaboonnont","url":"https://wuxia-rpg.com","domain":"wuxia-rpg.com","extras":["https://wuxia-rpg.com/quiz"],"reactions":41,"ok":true,"src":"https://www.facebook.com/groups/1745892855948687/posts/2323047211566579/?comment_id=2323337661537534&__cft__[0]=AZZaHDg-RD2maDCWcmP_-Tz4xDExBUveh3Xdzown5w3r3yZYQ2FqPr7-75Y01kWETb5JKDHLDldoE2sg2lKIG95w3Rlpguo85OpFT65DiDoUauBihl_A2hQoxR-A50zQQXAc3QKkKSBmEd0k0Llcvzxw&__tn__=R]-R"},{"no":61,"cat":"เกม & ความบันเทิง","name":"FounderQuest","desc":"เกมจำลองการทำธุรกิจ ต่อยอดจากในเกมสู่ชีวิตจริง","author":"Pisetpol Luachan","url":"https://founderquest.netlify.app","domain":"founderquest.netlify.app","extras":[],"reactions":16,"ok":true,"src":"https://www.facebook.com/groups/1745892855948687/posts/2323047211566579/?comment_id=2323668188171148&__cft__[0]=AZZaHDg-RD2maDCWcmP_-Tz4xDExBUveh3Xdzown5w3r3yZYQ2FqPr7-75Y01kWETb5JKDHLDldoE2sg2lKIG95w3Rlpguo85OpFT65DiDoUauBihl_A2hQoxR-A50zQQXAc3QKkKSBmEd0k0Llcvzxw&__tn__=R]-R"},{"no":62,"cat":"เกม & ความบันเทิง","name":"CreaturesOS","desc":"เกมเลี้ยงสัตว์เวทมนตร์บนบอร์ด ESP32 ตัวละคร 5 สปีชีส์ x 4 variants ต่อสู้ผ่าน BLE ดึงพลังจาก wifi hotspot และมีโหมดนาฬิกา","author":"Pich Pykpmk","url":"https://qazwsx-maker.github.io/creaturesOS/","domain":"qazwsx-maker.github.io","extras":[],"reactions":14,"ok":true,"src":"https://www.facebook.com/groups/1745892855948687/posts/2323047211566579/?comment_id=2323746374829996&__cft__[0]=AZZaHDg-RD2maDCWcmP_-Tz4xDExBUveh3Xdzown5w3r3yZYQ2FqPr7-75Y01kWETb5JKDHLDldoE2sg2lKIG95w3Rlpguo85OpFT65DiDoUauBihl_A2hQoxR-A50zQQXAc3QKkKSBmEd0k0Llcvzxw&__tn__=R]-R"},{"no":63,"cat":"เกม & ความบันเทิง","name":"Tarot Oracle","desc":"เว็บทำนายไพ่ทาโรต์ ใช้รูปไพ่ที่ผู้ใช้สร้างเองมาทำนายได้","author":"Nattaporn Kigpadermkul","url":"https://tarot-oracle-one.vercel.app/","domain":"tarot-oracle-one.vercel.app","extras":[],"reactions":12,"ok":true,"src":"https://www.facebook.com/groups/1745892855948687/posts/2323047211566579/?comment_id=2323351581536142&__cft__[0]=AZZaHDg-RD2maDCWcmP_-Tz4xDExBUveh3Xdzown5w3r3yZYQ2FqPr7-75Y01kWETb5JKDHLDldoE2sg2lKIG95w3Rlpguo85OpFT65DiDoUauBihl_A2hQoxR-A50zQQXAc3QKkKSBmEd0k0Llcvzxw&__tn__=R]-R"},{"no":64,"cat":"เกม & ความบันเทิง","name":"PurrToBooth","desc":"เว็บถ่ายรูปเล่นกับแมวที่บ้าน ภาพประกอบวาดเองทั้งหมด","author":"Suppalak Ymr","url":"https://purrtobooth.vercel.app","domain":"purrtobooth.vercel.app","extras":[],"reactions":11,"ok":true,"src":"https://www.facebook.com/groups/1745892855948687/posts/2323047211566579/?comment_id=2323612038176763&__cft__[0]=AZZaHDg-RD2maDCWcmP_-Tz4xDExBUveh3Xdzown5w3r3yZYQ2FqPr7-75Y01kWETb5JKDHLDldoE2sg2lKIG95w3Rlpguo85OpFT65DiDoUauBihl_A2hQoxR-A50zQQXAc3QKkKSBmEd0k0Llcvzxw&__tn__=R]-R"},{"no":65,"cat":"เกม & ความบันเทิง","name":"Uniz.Host","desc":"บริการเช่าเซิร์ฟเวอร์เกม","author":"Uniz.Host","url":"https://uniz.host/","domain":"uniz.host","extras":[],"reactions":5,"ok":true,"src":"https://www.facebook.com/groups/1745892855948687/posts/2323047211566579/?comment_id=2323445421526758&__cft__[0]=AZZaHDg-RD2maDCWcmP_-Tz4xDExBUveh3Xdzown5w3r3yZYQ2FqPr7-75Y01kWETb5JKDHLDldoE2sg2lKIG95w3Rlpguo85OpFT65DiDoUauBihl_A2hQoxR-A50zQQXAc3QKkKSBmEd0k0Llcvzxw&__tn__=R]-R"},{"no":66,"cat":"เกม & ความบันเทิง","name":"หมูมณีนิยาย","desc":"แพลตฟอร์มนิยายเสียงที่สร้างขึ้นเองเพราะไม่พอใจการแบนของแพลตฟอร์มอื่น","author":"ซัน ธนวิชญ์","url":"https://www.moomniyay.com/","domain":"moomniyay.com","extras":[],"reactions":5,"ok":true,"src":"https://www.facebook.com/groups/1745892855948687/posts/2323047211566579/?comment_id=2323743738163593&__cft__[0]=AZZaHDg-RD2maDCWcmP_-Tz4xDExBUveh3Xdzown5w3r3yZYQ2FqPr7-75Y01kWETb5JKDHLDldoE2sg2lKIG95w3Rlpguo85OpFT65DiDoUauBihl_A2hQoxR-A50zQQXAc3QKkKSBmEd0k0Llcvzxw&__tn__=R]-R"},{"no":67,"cat":"เกม & ความบันเทิง","name":"หมออัยย์ (Mor-AI)","desc":"หมอดูดวง AI โหราศาสตร์ไทย คำนวณตามหลักโลจิกโหราศาสตร์ไทยหลายขั้นตอน","author":"Hill Chitsanupong - AIใช้จริง","url":"https://mor-ai.app/","domain":"mor-ai.app","extras":[],"reactions":3,"ok":true,"src":"https://www.facebook.com/groups/1745892855948687/posts/2323047211566579/?comment_id=2323922678145699&__cft__[0]=AZZaHDg-RD2maDCWcmP_-Tz4xDExBUveh3Xdzown5w3r3yZYQ2FqPr7-75Y01kWETb5JKDHLDldoE2sg2lKIG95w3Rlpguo85OpFT65DiDoUauBihl_A2hQoxR-A50zQQXAc3QKkKSBmEd0k0Llcvzxw&__tn__=R]-R"},{"no":68,"cat":"เกม & ความบันเทิง","name":"FMTH","desc":"เกมผู้จัดการทีมฟุตบอล จัดทีม ซื้อขายนักเตะ ตั้งแทกติก แข่งพร้อมกัน 16.00 น. เปิดแล้ว 17 ลีก","author":"Fasang Klangdon","url":"http://fmth.online","domain":"fmth.online","extras":[],"reactions":2,"ok":true,"src":"https://www.facebook.com/groups/1745892855948687/posts/2323047211566579/?comment_id=2324425704762063&__cft__[0]=AZZaHDg-RD2maDCWcmP_-Tz4xDExBUveh3Xdzown5w3r3yZYQ2FqPr7-75Y01kWETb5JKDHLDldoE2sg2lKIG95w3Rlpguo85OpFT65DiDoUauBihl_A2hQoxR-A50zQQXAc3QKkKSBmEd0k0Llcvzxw&__tn__=R]-R"},{"no":69,"cat":"ท่องเที่ยว แผนที่ & ยานยนต์","name":"DivvyRoam","desc":"แอปจดค่าใช้จ่ายระหว่างทริป แปลงสกุลเงินตามอัตราปัจจุบัน หารบิลกับเพื่อนร่วมทริป พร้อมพิมพ์สลิปและตารางสรุป","author":"Zakariya Wohya","url":"https://divvyroam.com","domain":"divvyroam.com","extras":[],"reactions":116,"ok":true,"src":"https://www.facebook.com/groups/1745892855948687/posts/2323047211566579/?comment_id=2323362941535006&__cft__[0]=AZZaHDg-RD2maDCWcmP_-Tz4xDExBUveh3Xdzown5w3r3yZYQ2FqPr7-75Y01kWETb5JKDHLDldoE2sg2lKIG95w3Rlpguo85OpFT65DiDoUauBihl_A2hQoxR-A50zQQXAc3QKkKSBmEd0k0Llcvzxw&__tn__=R]-R"},{"no":70,"cat":"ท่องเที่ยว แผนที่ & ยานยนต์","name":"จุดกางเต็นท์.com","desc":"เว็บรวมข้อมูลจุดกางเต็นท์","author":"Nan Thanwa","url":"https://www.จุดกางเต็นท์.com/","domain":"จุดกางเต็นท์.com","extras":[],"reactions":101,"ok":true,"src":"https://www.facebook.com/groups/1745892855948687/posts/2323047211566579/?comment_id=2323467201524580&__cft__[0]=AZZaHDg-RD2maDCWcmP_-Tz4xDExBUveh3Xdzown5w3r3yZYQ2FqPr7-75Y01kWETb5JKDHLDldoE2sg2lKIG95w3Rlpguo85OpFT65DiDoUauBihl_A2hQoxR-A50zQQXAc3QKkKSBmEd0k0Llcvzxw&__tn__=R]-R"},{"no":71,"cat":"ท่องเที่ยว แผนที่ & ยานยนต์","name":"PugEV","desc":"แอปหาสถานีชาร์จรถไฟฟ้าทั่วประเทศไทย","author":"Thawatchai Ninpet","url":"https://apps.apple.com/th/app/pugev/id6477750987?l=th","domain":"apps.apple.com","extras":[],"reactions":39,"ok":true,"src":"https://www.facebook.com/groups/1745892855948687/posts/2323047211566579/?comment_id=2323725061498794&__cft__[0]=AZZaHDg-RD2maDCWcmP_-Tz4xDExBUveh3Xdzown5w3r3yZYQ2FqPr7-75Y01kWETb5JKDHLDldoE2sg2lKIG95w3Rlpguo85OpFT65DiDoUauBihl_A2hQoxR-A50zQQXAc3QKkKSBmEd0k0Llcvzxw&__tn__=R]-R"},{"no":72,"cat":"ท่องเที่ยว แผนที่ & ยานยนต์","name":"LinkTour","desc":"เครื่องมือด้านการท่องเที่ยว (เจ้าของไม่ได้ระบุรายละเอียด)","author":"Kosin Ton Yeambunya","url":"https://linktour.me","domain":"linktour.me","extras":[],"reactions":26,"ok":true,"src":"https://www.facebook.com/groups/1745892855948687/posts/2323047211566579/?comment_id=2323428198195147&reply_comment_id=2323648018173165&__cft__[0]=AZZaHDg-RD2maDCWcmP_-Tz4xDExBUveh3Xdzown5w3r3yZYQ2FqPr7-75Y01kWETb5JKDHLDldoE2sg2lKIG95w3Rlpguo85OpFT65DiDoUauBihl_A2hQoxR-A50zQQXAc3QKkKSBmEd0k0Llcvzxw&__tn__=R]-R"},{"no":73,"cat":"ท่องเที่ยว แผนที่ & ยานยนต์","name":"EV Top-up","desc":"เว็บคำนวณการเติมเงินชาร์จรถ EV สำหรับตู้ชาร์จที่ต้องเติมเงินล่วงหน้า","author":"Siriwat Wanghorm","url":"https://ev-topup.pages.dev","domain":"ev-topup.pages.dev","extras":[],"reactions":16,"ok":true,"src":"https://www.facebook.com/groups/1745892855948687/posts/2323047211566579/?comment_id=2323704878167479&__cft__[0]=AZZaHDg-RD2maDCWcmP_-Tz4xDExBUveh3Xdzown5w3r3yZYQ2FqPr7-75Y01kWETb5JKDHLDldoE2sg2lKIG95w3Rlpguo85OpFT65DiDoUauBihl_A2hQoxR-A50zQQXAc3QKkKSBmEd0k0Llcvzxw&__tn__=R]-R"},{"no":74,"cat":"ท่องเที่ยว แผนที่ & ยานยนต์","name":"RodArea","desc":"แผนที่งานรถในไทย รวมงานมีต งานรวมตัว และงานเฉพาะรุ่น","author":"Jiraphat Checken","url":"https://rodarea.com/map","domain":"rodarea.com","extras":[],"reactions":8,"ok":true,"src":"https://www.facebook.com/groups/1745892855948687/posts/2323047211566579/?comment_id=2323351608202806&__cft__[0]=AZZaHDg-RD2maDCWcmP_-Tz4xDExBUveh3Xdzown5w3r3yZYQ2FqPr7-75Y01kWETb5JKDHLDldoE2sg2lKIG95w3Rlpguo85OpFT65DiDoUauBihl_A2hQoxR-A50zQQXAc3QKkKSBmEd0k0Llcvzxw&__tn__=R]-R"},{"no":75,"cat":"ท่องเที่ยว แผนที่ & ยานยนต์","name":"Trip Lom","desc":"แอปช่วยวางแผนทริปกับเพื่อนให้ไม่ล่ม","author":"Newz Pattapon","url":"https://trip-lom.3mbr1z0.workers.dev","domain":"trip-lom.3mbr1z0.workers.dev","extras":[],"reactions":4,"ok":true,"src":"https://www.facebook.com/groups/1745892855948687/posts/2323047211566579/?comment_id=2323796858158281&__cft__[0]=AZZaHDg-RD2maDCWcmP_-Tz4xDExBUveh3Xdzown5w3r3yZYQ2FqPr7-75Y01kWETb5JKDHLDldoE2sg2lKIG95w3Rlpguo85OpFT65DiDoUauBihl_A2hQoxR-A50zQQXAc3QKkKSBmEd0k0Llcvzxw&__tn__=R]-R"},{"no":76,"cat":"ท่องเที่ยว แผนที่ & ยานยนต์","name":"24CarFix","desc":"แอปเรียกช่างซ่อมรถ 24 ชม. เครือข่ายช่าง 13,000 คน ผู้ใช้ 700,000 คน","author":"Kitichai Pungmanut","url":"https://new-app.24carfix.com/","domain":"new-app.24carfix.com","extras":[],"reactions":1,"ok":true,"src":"https://www.facebook.com/groups/1745892855948687/posts/2323047211566579/?comment_id=2324173544787279&__cft__[0]=AZZaHDg-RD2maDCWcmP_-Tz4xDExBUveh3Xdzown5w3r3yZYQ2FqPr7-75Y01kWETb5JKDHLDldoE2sg2lKIG95w3Rlpguo85OpFT65DiDoUauBihl_A2hQoxR-A50zQQXAc3QKkKSBmEd0k0Llcvzxw&__tn__=R]-R"},{"no":77,"cat":"ภัยพิบัติ ภาครัฐ & GIS","name":"ThaiWarning","desc":"แจ้งเตือนความเสี่ยงน้ำท่วมรอบรัศมีอัตโนมัติ และสถานะน้ำท่วมทั่วประเทศแบบเรียลไทม์จากข้อมูลสาธารณะ","author":"Kuekrit Promsui","url":"https://www.seemywish.com/thaiwarning","domain":"seemywish.com","extras":[],"reactions":195,"ok":true,"src":"https://www.facebook.com/groups/1745892855948687/posts/2323047211566579/?comment_id=2323579118180055&__cft__[0]=AZZaHDg-RD2maDCWcmP_-Tz4xDExBUveh3Xdzown5w3r3yZYQ2FqPr7-75Y01kWETb5JKDHLDldoE2sg2lKIG95w3Rlpguo85OpFT65DiDoUauBihl_A2hQoxR-A50zQQXAc3QKkKSBmEd0k0Llcvzxw&__tn__=R]-R"},{"no":78,"cat":"ภัยพิบัติ ภาครัฐ & GIS","name":"Boluang Disaster GIS","desc":"ระบบภูมิสารสนเทศด้านสาธารณภัยระดับพื้นที่ สร้างด้วย Claude Code + Vercel + Supabase","author":"Pariwat Thaweesukkasemsan","url":"https://boluang-disaster-gis.vercel.app/","domain":"boluang-disaster-gis.vercel.app","extras":[],"reactions":95,"ok":true,"src":"https://www.facebook.com/groups/1745892855948687/posts/2323047211566579/?comment_id=2323342031537097&__cft__[0]=AZZaHDg-RD2maDCWcmP_-Tz4xDExBUveh3Xdzown5w3r3yZYQ2FqPr7-75Y01kWETb5JKDHLDldoE2sg2lKIG95w3Rlpguo85OpFT65DiDoUauBihl_A2hQoxR-A50zQQXAc3QKkKSBmEd0k0Llcvzxw&__tn__=R]-R"},{"no":79,"cat":"ภัยพิบัติ ภาครัฐ & GIS","name":"SIAHRA Radar","desc":"แผนที่ 3 มิติรายจังหวัด แสดงข้อมูลภัยพิบัติ/ความเสี่ยงที่วัดจริงจากหลายแหล่งข้อมูล เปิดซอร์สโค้ดแบบ public repo","author":"Thammasat Prasongmaneenil","url":"https://siahra-radar.co/","domain":"siahra-radar.co","extras":["https://github.com/flukelaster/SIAHRA"],"reactions":72,"ok":true,"src":"https://www.facebook.com/groups/1745892855948687/posts/2323047211566579/?comment_id=2323497128188254&__cft__[0]=AZZaHDg-RD2maDCWcmP_-Tz4xDExBUveh3Xdzown5w3r3yZYQ2FqPr7-75Y01kWETb5JKDHLDldoE2sg2lKIG95w3Rlpguo85OpFT65DiDoUauBihl_A2hQoxR-A50zQQXAc3QKkKSBmEd0k0Llcvzxw&__tn__=R]-R"},{"no":80,"cat":"ภัยพิบัติ ภาครัฐ & GIS","name":"ShowMocyc Emergency","desc":"เว็บรวมเบอร์โทรฉุกเฉินสำหรับผู้ใช้รถใช้ถนน กดโทรออกได้ทันทีพร้อมแสดงพิกัดที่อยู่","author":"Jair ShowMocyc","url":"https://showmocyc.com/emer.html","domain":"showmocyc.com","extras":[],"reactions":22,"ok":true,"src":"https://www.facebook.com/groups/1745892855948687/posts/2323047211566579/?comment_id=2323756774828956&__cft__[0]=AZZaHDg-RD2maDCWcmP_-Tz4xDExBUveh3Xdzown5w3r3yZYQ2FqPr7-75Y01kWETb5JKDHLDldoE2sg2lKIG95w3Rlpguo85OpFT65DiDoUauBihl_A2hQoxR-A50zQQXAc3QKkKSBmEd0k0Llcvzxw&__tn__=R]-R"},{"no":81,"cat":"ภัยพิบัติ ภาครัฐ & GIS","name":"MHS Water Dashboard","desc":"Map dashboard ปริมาณน้ำฝนจังหวัดแม่ฮ่องสอน ดึง API จาก สสน. แล้วสร้างฟังก์ชัน IDW แสดงปริมาณน้ำฝนเชิงพื้นที่แบบ near real-time (ใช้เวลาทำ 4 วัน)","author":"PhiPhi Kritchao","url":"https://mhs-water-rid.vercel.app","domain":"mhs-water-rid.vercel.app","extras":[],"reactions":10,"ok":true,"src":"https://www.facebook.com/groups/1745892855948687/posts/2323047211566579/?comment_id=2323655324839101&__cft__[0]=AZZaHDg-RD2maDCWcmP_-Tz4xDExBUveh3Xdzown5w3r3yZYQ2FqPr7-75Y01kWETb5JKDHLDldoE2sg2lKIG95w3Rlpguo85OpFT65DiDoUauBihl_A2hQoxR-A50zQQXAc3QKkKSBmEd0k0Llcvzxw&__tn__=R]-R"},{"no":82,"cat":"ภัยพิบัติ ภาครัฐ & GIS","name":"โมเดลถามปากคำ + ระบบติดตามเอกสาร","desc":"โมเดลช่วยงานถามปากคำ (ใช้ GPT-4) พร้อมระบบติดตามความคืบหน้าและจัดการเอกสารหลังบ้าน (ส่วนนี้ใช้ Claude 80-90%)","author":"Anantapong Chayapong","url":"https://www.facebook.com/share/p/1ECTbW2L8A/?mibextid=wwXIfr","domain":"facebook.com","extras":[],"reactions":6,"ok":true,"src":"https://www.facebook.com/groups/1745892855948687/posts/2323047211566579/?comment_id=2324506434753990&__cft__[0]=AZZaHDg-RD2maDCWcmP_-Tz4xDExBUveh3Xdzown5w3r3yZYQ2FqPr7-75Y01kWETb5JKDHLDldoE2sg2lKIG95w3Rlpguo85OpFT65DiDoUauBihl_A2hQoxR-A50zQQXAc3QKkKSBmEd0k0Llcvzxw&__tn__=R]-R"},{"no":83,"cat":"ภัยพิบัติ ภาครัฐ & GIS","name":"BeauxMap","desc":"เว็บเช็กสภาพอากาศ ทำคนเดียวด้วย Gemini","author":"Siraphop Rattanawai","url":"https://www.beauxmap.com","domain":"beauxmap.com","extras":[],"reactions":3,"ok":true,"src":"https://www.facebook.com/groups/1745892855948687/posts/2323047211566579/?comment_id=2323714431499857&__cft__[0]=AZZaHDg-RD2maDCWcmP_-Tz4xDExBUveh3Xdzown5w3r3yZYQ2FqPr7-75Y01kWETb5JKDHLDldoE2sg2lKIG95w3Rlpguo85OpFT65DiDoUauBihl_A2hQoxR-A50zQQXAc3QKkKSBmEd0k0Llcvzxw&__tn__=R]-R"},{"no":84,"cat":"Productivity & เครื่องมือทำงาน","name":"Ewery.day","desc":"LINE bot แจ้งเตือนและจด to-do ออกแบบให้ใช้ง่ายแบบไม่ต้องคิดเยอะ ใช้เวลาพัฒนาราว 1 เดือน","author":"Thanakorn Chadong","url":"https://ewery.day/","domain":"ewery.day","extras":[],"reactions":671,"ok":true,"src":"https://www.facebook.com/groups/1745892855948687/posts/2323047211566579/?comment_id=2323400521531248&__cft__[0]=AZZaHDg-RD2maDCWcmP_-Tz4xDExBUveh3Xdzown5w3r3yZYQ2FqPr7-75Y01kWETb5JKDHLDldoE2sg2lKIG95w3Rlpguo85OpFT65DiDoUauBihl_A2hQoxR-A50zQQXAc3QKkKSBmEd0k0Llcvzxw&__tn__=R]-R"},{"no":85,"cat":"Productivity & เครื่องมือทำงาน","name":"PDF Tools (SBTC)","desc":"ชุดเครื่องมือจัดการไฟล์ PDF บนเว็บ","author":"Au Nattawut Petprasom","url":"https://www.sbtc.pntc.ac.th/pdf-tools","domain":"sbtc.pntc.ac.th","extras":[],"reactions":572,"ok":true,"src":"https://www.facebook.com/groups/1745892855948687/posts/2323047211566579/?comment_id=2323386901532610&reply_comment_id=2323569968180970&__cft__[0]=AZZaHDg-RD2maDCWcmP_-Tz4xDExBUveh3Xdzown5w3r3yZYQ2FqPr7-75Y01kWETb5JKDHLDldoE2sg2lKIG95w3Rlpguo85OpFT65DiDoUauBihl_A2hQoxR-A50zQQXAc3QKkKSBmEd0k0Llcvzxw&__tn__=R]-R"},{"no":86,"cat":"Productivity & เครื่องมือทำงาน","name":"JodJam","desc":"ระบบ backup และบอทถามตอบใน LINE","author":"Chakkrisn Menn Talawat","url":"https://jodjam.com","domain":"jodjam.com","extras":["https://jodjam.com/pricing"],"reactions":144,"ok":true,"src":"https://www.facebook.com/groups/1745892855948687/posts/2323047211566579/?comment_id=2323358461535454&__cft__[0]=AZZaHDg-RD2maDCWcmP_-Tz4xDExBUveh3Xdzown5w3r3yZYQ2FqPr7-75Y01kWETb5JKDHLDldoE2sg2lKIG95w3Rlpguo85OpFT65DiDoUauBihl_A2hQoxR-A50zQQXAc3QKkKSBmEd0k0Llcvzxw&__tn__=R]-R"},{"no":87,"cat":"Productivity & เครื่องมือทำงาน","name":"MyPDF","desc":"เว็บเครื่องมือ PDF 43 ตัวที่ประมวลผลบนเบราว์เซอร์ทั้งหมด ไฟล์ไม่ถูกอัปโหลดออกจากเครื่อง รองรับแปลง PDF เป็น Word ภาษาไทยไม่เพี้ยน","author":"Sarawoot Chunvirat","url":"https://mypdfs.app","domain":"mypdfs.app","extras":[],"reactions":53,"ok":true,"src":"https://www.facebook.com/groups/1745892855948687/posts/2323047211566579/?comment_id=2323675648170402&__cft__[0]=AZZaHDg-RD2maDCWcmP_-Tz4xDExBUveh3Xdzown5w3r3yZYQ2FqPr7-75Y01kWETb5JKDHLDldoE2sg2lKIG95w3Rlpguo85OpFT65DiDoUauBihl_A2hQoxR-A50zQQXAc3QKkKSBmEd0k0Llcvzxw&__tn__=R]-R"},{"no":88,"cat":"Productivity & เครื่องมือทำงาน","name":"Mutta","desc":"เลขา AI สั่งงานและตามงาน จัดระเบียบชีวิตผ่าน LINE","author":"Leo Naruebet","url":"https://mutta.ireadcustomer.life/","domain":"mutta.ireadcustomer.life","extras":[],"reactions":16,"ok":true,"src":"https://www.facebook.com/groups/1745892855948687/posts/2323047211566579/?comment_id=2323499544854679&__cft__[0]=AZZaHDg-RD2maDCWcmP_-Tz4xDExBUveh3Xdzown5w3r3yZYQ2FqPr7-75Y01kWETb5JKDHLDldoE2sg2lKIG95w3Rlpguo85OpFT65DiDoUauBihl_A2hQoxR-A50zQQXAc3QKkKSBmEd0k0Llcvzxw&__tn__=R]-R"},{"no":89,"cat":"Productivity & เครื่องมือทำงาน","name":"แอปแชร์ลิงก์ผ่าน NFC (Warat Wongmaneekit)","desc":"แอปสำหรับแชร์ลิงก์ผ่าน NFC","author":"Warat Wongmaneekit","url":"https://play.google.com/store/apps/details","domain":"play.google.com","extras":[],"reactions":7,"ok":false,"src":"https://www.facebook.com/groups/1745892855948687/posts/2323047211566579/?comment_id=2323763664828267&__cft__[0]=AZZaHDg-RD2maDCWcmP_-Tz4xDExBUveh3Xdzown5w3r3yZYQ2FqPr7-75Y01kWETb5JKDHLDldoE2sg2lKIG95w3Rlpguo85OpFT65DiDoUauBihl_A2hQoxR-A50zQQXAc3QKkKSBmEd0k0Llcvzxw&__tn__=R]-R"},{"no":90,"cat":"Productivity & เครื่องมือทำงาน","name":"Gistly","desc":"แอปสรุปความรู้เป็นเนื้อหาอ่านง่าย รับ YouTube link อัปโหลดไฟล์ หรืออัดเสียง ใช้ผ่าน LINE OA หรือ Web App","author":"Bob Lertmanatchai","url":"https://gistly-lrylf3wjqa-as.a.run.app","domain":"gistly-lrylf3wjqa-as.a.run.app","extras":[],"reactions":5,"ok":true,"src":"https://www.facebook.com/groups/1745892855948687/posts/2323047211566579/?comment_id=2324381681433132&__cft__[0]=AZZaHDg-RD2maDCWcmP_-Tz4xDExBUveh3Xdzown5w3r3yZYQ2FqPr7-75Y01kWETb5JKDHLDldoE2sg2lKIG95w3Rlpguo85OpFT65DiDoUauBihl_A2hQoxR-A50zQQXAc3QKkKSBmEd0k0Llcvzxw&__tn__=R]-R"},{"no":91,"cat":"Productivity & เครื่องมือทำงาน","name":"PowerPointBoy Map","desc":"เว็บดาวน์โหลดกราฟิกแผนที่โลกและประเทศไทยลึกถึงระดับตำบล เป็นไฟล์ PNG หรือ SVG แก้ไขต่อได้","author":"วันเฉลิม อัศวแสงรัตน์","url":"https://map.powerpointboy.com/","domain":"map.powerpointboy.com","extras":[],"reactions":4,"ok":true,"src":"https://www.facebook.com/groups/1745892855948687/posts/2323047211566579/?comment_id=2324451091426191&__cft__[0]=AZZaHDg-RD2maDCWcmP_-Tz4xDExBUveh3Xdzown5w3r3yZYQ2FqPr7-75Y01kWETb5JKDHLDldoE2sg2lKIG95w3Rlpguo85OpFT65DiDoUauBihl_A2hQoxR-A50zQQXAc3QKkKSBmEd0k0Llcvzxw&__tn__=R]-R"},{"no":92,"cat":"Productivity & เครื่องมือทำงาน","name":"Speakit วาจา","desc":"แอปอ่านออกเสียงข้อความจาก clipboard หรือที่แชร์เข้ามา รองรับภาษาไทย แปลได้ เก็บเป็น playlist แบบหนังสือเสียง และสร้างไฟล์เสียงได้","author":"Preeda Tungnapagorn","url":"https://play.google.com/store/apps/details","domain":"play.google.com","extras":[],"reactions":3,"ok":false,"src":"https://www.facebook.com/groups/1745892855948687/posts/2323047211566579/?comment_id=2324347968103170&__cft__[0]=AZZaHDg-RD2maDCWcmP_-Tz4xDExBUveh3Xdzown5w3r3yZYQ2FqPr7-75Y01kWETb5JKDHLDldoE2sg2lKIG95w3Rlpguo85OpFT65DiDoUauBihl_A2hQoxR-A50zQQXAc3QKkKSBmEd0k0Llcvzxw&__tn__=R]-R"},{"no":93,"cat":"Productivity & เครื่องมือทำงาน","name":"TopazWork","desc":"แอปจด to-do เชื่อม Google Calendar มี voice summary ถอดเสียงประชุมผ่าน LINE ที่ link กับแอปโดยตรง","author":"Witha Sakulopapach","url":"https://app.topazwork.com","domain":"app.topazwork.com","extras":["https://lin.ee/pdhhGJ2"],"reactions":3,"ok":true,"src":"https://www.facebook.com/groups/1745892855948687/posts/2323047211566579/?comment_id=2324205851450715&__cft__[0]=AZZaHDg-RD2maDCWcmP_-Tz4xDExBUveh3Xdzown5w3r3yZYQ2FqPr7-75Y01kWETb5JKDHLDldoE2sg2lKIG95w3Rlpguo85OpFT65DiDoUauBihl_A2hQoxR-A50zQQXAc3QKkKSBmEd0k0Llcvzxw&__tn__=R]-R"},{"no":94,"cat":"Productivity & เครื่องมือทำงาน","name":"Cadence Tasks","desc":"แอป task management ที่สร้างด้วย Claude และให้ Claude นำขึ้น App Store ให้","author":"Pakphum Benjadechachai","url":"https://apps.apple.com/app/id6775131412","domain":"apps.apple.com","extras":[],"reactions":2,"ok":true,"src":"https://www.facebook.com/groups/1745892855948687/posts/2323047211566579/?comment_id=2324216221449678&__cft__[0]=AZZaHDg-RD2maDCWcmP_-Tz4xDExBUveh3Xdzown5w3r3yZYQ2FqPr7-75Y01kWETb5JKDHLDldoE2sg2lKIG95w3Rlpguo85OpFT65DiDoUauBihl_A2hQoxR-A50zQQXAc3QKkKSBmEd0k0Llcvzxw&__tn__=R]-R"},{"no":95,"cat":"Productivity & เครื่องมือทำงาน","name":"จดบันทึก (JotBantuek)","desc":"Web App เขียนบันทึกส่วนตัวแนว Journal ติดตั้งเป็น PWA ได้","author":"Pavaris Pobhirun","url":"https://jotbantuek.app/","domain":"jotbantuek.app","extras":[],"reactions":2,"ok":true,"src":"https://www.facebook.com/groups/1745892855948687/posts/2323047211566579/?comment_id=2324302804774353&__cft__[0]=AZZaHDg-RD2maDCWcmP_-Tz4xDExBUveh3Xdzown5w3r3yZYQ2FqPr7-75Y01kWETb5JKDHLDldoE2sg2lKIG95w3Rlpguo85OpFT65DiDoUauBihl_A2hQoxR-A50zQQXAc3QKkKSBmEd0k0Llcvzxw&__tn__=R]-R"},{"no":96,"cat":"AI Agent & Developer Tools","name":"Aetox","desc":"ระบบ AI Agent ที่ทำงานบนคอมพิวเตอร์ของผู้ใช้เอง","author":"Chayapol Promsavana","url":"https://github.com/Mike0165115321/Aetox","domain":"github.com","extras":[],"reactions":40,"ok":true,"src":"https://www.facebook.com/groups/1745892855948687/posts/2323047211566579/?comment_id=2323339828203984&__cft__[0]=AZZaHDg-RD2maDCWcmP_-Tz4xDExBUveh3Xdzown5w3r3yZYQ2FqPr7-75Y01kWETb5JKDHLDldoE2sg2lKIG95w3Rlpguo85OpFT65DiDoUauBihl_A2hQoxR-A50zQQXAc3QKkKSBmEd0k0Llcvzxw&__tn__=R]-R"},{"no":97,"cat":"AI Agent & Developer Tools","name":"FIRE KEEPER","desc":"ระบบ Cognitive AI / Decision Governance แยกความสามารถในการสร้างคำตอบออกจากอำนาจตัดสินใจ เน้น Evidence, Reasoning, Uncertainty, Governance และ Human Agency","author":"Punparameth Punn Punyachotimano","url":"https://firekeeper.site/","domain":"firekeeper.site","extras":[],"reactions":4,"ok":true,"src":"https://www.facebook.com/groups/1745892855948687/posts/2323047211566579/?comment_id=2323424021528898&__cft__[0]=AZZaHDg-RD2maDCWcmP_-Tz4xDExBUveh3Xdzown5w3r3yZYQ2FqPr7-75Y01kWETb5JKDHLDldoE2sg2lKIG95w3Rlpguo85OpFT65DiDoUauBihl_A2hQoxR-A50zQQXAc3QKkKSBmEd0k0Llcvzxw&__tn__=R]-R"},{"no":98,"cat":"AI Agent & Developer Tools","name":"UXUI Studio","desc":"แหล่งรวมทรัพยากรด้าน UX/UI","author":"Adirut Bank Arthitayaphong","url":"https://uxui-studio.com","domain":"uxui-studio.com","extras":[],"reactions":4,"ok":true,"src":"https://www.facebook.com/groups/1745892855948687/posts/2323047211566579/?comment_id=2323747908163176&__cft__[0]=AZZaHDg-RD2maDCWcmP_-Tz4xDExBUveh3Xdzown5w3r3yZYQ2FqPr7-75Y01kWETb5JKDHLDldoE2sg2lKIG95w3Rlpguo85OpFT65DiDoUauBihl_A2hQoxR-A50zQQXAc3QKkKSBmEd0k0Llcvzxw&__tn__=R]-R"},{"no":99,"cat":"AI Agent & Developer Tools","name":"SkynetClaw","desc":"ระบบ AI แบบ Multi-Agent ทำงานเหมือนองค์กรภายใต้ Governance พร้อมสถาปัตยกรรมความปลอดภัย ระบบคิด และ Memory","author":"Terng Dechanon","url":"https://github.com/ElmatadorZ/skynetclaw","domain":"github.com","extras":[],"reactions":3,"ok":true,"src":"https://www.facebook.com/groups/1745892855948687/posts/2323047211566579/?comment_id=2324623108075656&__cft__[0]=AZZaHDg-RD2maDCWcmP_-Tz4xDExBUveh3Xdzown5w3r3yZYQ2FqPr7-75Y01kWETb5JKDHLDldoE2sg2lKIG95w3Rlpguo85OpFT65DiDoUauBihl_A2hQoxR-A50zQQXAc3QKkKSBmEd0k0Llcvzxw&__tn__=R]-R"},{"no":100,"cat":"AI Agent & Developer Tools","name":"AZHub","desc":"ระบบแชทบน VPS เชื่อมต่อได้ทุกที่ ใช้ขึ้นโปรเจกต์ใหม่ได้สะดวก","author":"Mujahid Kabae","url":"https://azhub.co/lp/dev","domain":"azhub.co","extras":[],"reactions":2,"ok":true,"src":"https://www.facebook.com/groups/1745892855948687/posts/2323047211566579/?comment_id=2323632258174741&__cft__[0]=AZZaHDg-RD2maDCWcmP_-Tz4xDExBUveh3Xdzown5w3r3yZYQ2FqPr7-75Y01kWETb5JKDHLDldoE2sg2lKIG95w3Rlpguo85OpFT65DiDoUauBihl_A2hQoxR-A50zQQXAc3QKkKSBmEd0k0Llcvzxw&__tn__=R]-R"},{"no":101,"cat":"AI Agent & Developer Tools","name":"Developer Tools Builder","desc":"เครื่องมือสารพัดนึกสำหรับนักพัฒนา ต่อกับ LINE ได้เลย","author":"Thepnatee Phojan","url":"https://www.facebook.com/share/p/1JEF85BRbm/?mibextid=wwXIfr","domain":"facebook.com","extras":[],"reactions":2,"ok":true,"src":"https://www.facebook.com/groups/1745892855948687/posts/2323047211566579/?comment_id=2323640164840617&__cft__[0]=AZZaHDg-RD2maDCWcmP_-Tz4xDExBUveh3Xdzown5w3r3yZYQ2FqPr7-75Y01kWETb5JKDHLDldoE2sg2lKIG95w3Rlpguo85OpFT65DiDoUauBihl_A2hQoxR-A50zQQXAc3QKkKSBmEd0k0Llcvzxw&__tn__=R]-R"},{"no":102,"cat":"สื่อ คอนเทนต์ & ครีเอทีฟ","name":"XIMI AI Studio","desc":"สตูดิโอ AI ครบวงจร generate ภาพ/วิดีโอ/SFX ทำ storyboard, video editor บนเว็บพร้อม generate ซับไตเติล และสร้างการ์ตูน","author":"Worapong Jindapanich","url":"https://ximi-ai.com/","domain":"ximi-ai.com","extras":["https://ximi-ai.com/animi"],"reactions":66,"ok":true,"src":"https://www.facebook.com/groups/1745892855948687/posts/2323047211566579/?comment_id=2323541468183820&__cft__[0]=AZZaHDg-RD2maDCWcmP_-Tz4xDExBUveh3Xdzown5w3r3yZYQ2FqPr7-75Y01kWETb5JKDHLDldoE2sg2lKIG95w3Rlpguo85OpFT65DiDoUauBihl_A2hQoxR-A50zQQXAc3QKkKSBmEd0k0Llcvzxw&__tn__=R]-R"},{"no":103,"cat":"สื่อ คอนเทนต์ & ครีเอทีฟ","name":"NongBank Voice Studio","desc":"เครื่องมือสร้างคลิปเสียงพากย์โดยไม่ต้องเขียน prompt เอง เลือกเสียงและอารมณ์ได้ (ต้องมี Google API key)","author":"Nuttanawin Janpaosang","url":"https://github.com/bankzar/NongBank-Voice-Studio","domain":"github.com","extras":[],"reactions":8,"ok":true,"src":"https://www.facebook.com/groups/1745892855948687/posts/2323047211566579/?comment_id=2324316678106299&__cft__[0]=AZZaHDg-RD2maDCWcmP_-Tz4xDExBUveh3Xdzown5w3r3yZYQ2FqPr7-75Y01kWETb5JKDHLDldoE2sg2lKIG95w3Rlpguo85OpFT65DiDoUauBihl_A2hQoxR-A50zQQXAc3QKkKSBmEd0k0Llcvzxw&__tn__=R]-R"},{"no":104,"cat":"สื่อ คอนเทนต์ & ครีเอทีฟ","name":"Drive Music","desc":"โปรเจกต์สตรีมเพลงจาก Google Drive มีทั้ง Web app และ native app บน iOS/Android","author":"Chakkrit Laolit","url":"https://drive-music-taupe.vercel.app/","domain":"drive-music-taupe.vercel.app","extras":["https://github.com/ChakkritGit/Drive-Music-IOS","https://github.com/ChakkritGit/Drive-Music-Android"],"reactions":6,"ok":true,"src":"https://www.facebook.com/groups/1745892855948687/posts/2323047211566579/?comment_id=2323509894853644&__cft__[0]=AZZaHDg-RD2maDCWcmP_-Tz4xDExBUveh3Xdzown5w3r3yZYQ2FqPr7-75Y01kWETb5JKDHLDldoE2sg2lKIG95w3Rlpguo85OpFT65DiDoUauBihl_A2hQoxR-A50zQQXAc3QKkKSBmEd0k0Llcvzxw&__tn__=R]-R"},{"no":105,"cat":"สื่อ คอนเทนต์ & ครีเอทีฟ","name":"SmartAIHub","desc":"ระบบ chat และสร้างซีรีส์/รีวิวสินค้าที่ปรับแต่งได้ละเอียดทุกจุด ไม่ใช่แบบ auto ทั่วไป","author":"พฤกษชาติ ธนากร","url":"https://smartaihub.app/","domain":"smartaihub.app","extras":[],"reactions":4,"ok":true,"src":"https://www.facebook.com/groups/1745892855948687/posts/2323047211566579/?comment_id=2323663958171571&__cft__[0]=AZZaHDg-RD2maDCWcmP_-Tz4xDExBUveh3Xdzown5w3r3yZYQ2FqPr7-75Y01kWETb5JKDHLDldoE2sg2lKIG95w3Rlpguo85OpFT65DiDoUauBihl_A2hQoxR-A50zQQXAc3QKkKSBmEd0k0Llcvzxw&__tn__=R]-R"},{"no":106,"cat":"สื่อ คอนเทนต์ & ครีเอทีฟ","name":"เต้าหู้แปลภาษา (Tofu Dubbing)","desc":"Chrome Extension พากย์เสียงไทยทับวิดีโอแบบเรียลไทม์ ใช้ได้กับ YouTube และ Udemy พร้อม sync เสียงให้ตรงจังหวะ","author":"Tanadon Chiraphaisansakun","url":"https://tofu-dubbing.dolishco.com/th","domain":"tofu-dubbing.dolishco.com","extras":["https://chromewebstore.google.com/.../icfjmkjfcmcmknkjcgd"],"reactions":4,"ok":true,"src":"https://www.facebook.com/groups/1745892855948687/posts/2323047211566579/?comment_id=2323449664859667&__cft__[0]=AZZaHDg-RD2maDCWcmP_-Tz4xDExBUveh3Xdzown5w3r3yZYQ2FqPr7-75Y01kWETb5JKDHLDldoE2sg2lKIG95w3Rlpguo85OpFT65DiDoUauBihl_A2hQoxR-A50zQQXAc3QKkKSBmEd0k0Llcvzxw&__tn__=R]-R"},{"no":107,"cat":"สื่อ คอนเทนต์ & ครีเอทีฟ","name":"Song List Go","desc":"เว็บแอปจัดการลิสต์เพลงสำหรับนักดนตรี ศิลปิน และผู้จัดการวง ใส่ชื่อเพลง คีย์ โน้ตสั้น เวลารวม เรียงลำดับด้วยการลากนิ้ว และปริ้นวางบนเวทีได้","author":"AttAkorn Pongterdsak","url":"https://attako.github.io/Song-List-Go/","domain":"attako.github.io","extras":[],"reactions":3,"ok":true,"src":"https://www.facebook.com/groups/1745892855948687/posts/2323047211566579/?comment_id=2323666851504615&__cft__[0]=AZZaHDg-RD2maDCWcmP_-Tz4xDExBUveh3Xdzown5w3r3yZYQ2FqPr7-75Y01kWETb5JKDHLDldoE2sg2lKIG95w3Rlpguo85OpFT65DiDoUauBihl_A2hQoxR-A50zQQXAc3QKkKSBmEd0k0Llcvzxw&__tn__=R]-R"},{"no":108,"cat":"ช้อปปิ้ง & การตลาด","name":"แอปส้ม (AppSoom)","desc":"รายงานข้อมูลรายได้ Affiliate ทุกแพลตฟอร์ม พร้อมเครื่องมือสร้างวิดีโออัตโนมัติและออโต้โพสต์","author":"Teerapong Seetongsook","url":"https://appsoom.com/","domain":"appsoom.com","extras":[],"reactions":30,"ok":true,"src":"https://www.facebook.com/groups/1745892855948687/posts/2323047211566579/?comment_id=2323398904864743&__cft__[0]=AZZaHDg-RD2maDCWcmP_-Tz4xDExBUveh3Xdzown5w3r3yZYQ2FqPr7-75Y01kWETb5JKDHLDldoE2sg2lKIG95w3Rlpguo85OpFT65DiDoUauBihl_A2hQoxR-A50zQQXAc3QKkKSBmEd0k0Llcvzxw&__tn__=R]-R"},{"no":109,"cat":"ช้อปปิ้ง & การตลาด","name":"OpenQuok","desc":"บริหารจัดการโซเชียลมีเดียผ่านการแชท","author":"Rati Montreewat","url":"https://www.openquok.com/","domain":"openquok.com","extras":[],"reactions":25,"ok":true,"src":"https://www.facebook.com/groups/1745892855948687/posts/2323047211566579/?comment_id=2323341118203855&__cft__[0]=AZZaHDg-RD2maDCWcmP_-Tz4xDExBUveh3Xdzown5w3r3yZYQ2FqPr7-75Y01kWETb5JKDHLDldoE2sg2lKIG95w3Rlpguo85OpFT65DiDoUauBihl_A2hQoxR-A50zQQXAc3QKkKSBmEd0k0Llcvzxw&__tn__=R]-R"},{"no":110,"cat":"ช้อปปิ้ง & การตลาด","name":"OptAdmin","desc":"ระบบ AI sales agent ตอบแชท ป้อนข้อมูลทั้งบริษัทได้ ต้นทุนไม่เกิน 0.1 บาทต่อข้อความ","author":"Worrawut Promsuwan","url":"https://optadmin.com/","domain":"optadmin.com","extras":[],"reactions":25,"ok":true,"src":"https://www.facebook.com/groups/1745892855948687/posts/2323047211566579/?comment_id=2323352908202676&__cft__[0]=AZZaHDg-RD2maDCWcmP_-Tz4xDExBUveh3Xdzown5w3r3yZYQ2FqPr7-75Y01kWETb5JKDHLDldoE2sg2lKIG95w3Rlpguo85OpFT65DiDoUauBihl_A2hQoxR-A50zQQXAc3QKkKSBmEd0k0Llcvzxw&__tn__=R]-R"},{"no":111,"cat":"ช้อปปิ้ง & การตลาด","name":"DealsDed","desc":"เว็บรวมดีล โปรโมชั่น และส่วนลดจากทุกแบรนด์","author":"Siriwat Wanghorm","url":"https://dealsded.com","domain":"dealsded.com","extras":[],"reactions":16,"ok":true,"src":"https://www.facebook.com/groups/1745892855948687/posts/2323047211566579/?comment_id=2323704878167479&__cft__[0]=AZZaHDg-RD2maDCWcmP_-Tz4xDExBUveh3Xdzown5w3r3yZYQ2FqPr7-75Y01kWETb5JKDHLDldoE2sg2lKIG95w3Rlpguo85OpFT65DiDoUauBihl_A2hQoxR-A50zQQXAc3QKkKSBmEd0k0Llcvzxw&__tn__=R]-R"},{"no":112,"cat":"ช้อปปิ้ง & การตลาด","name":"คุ้มสุด (Kumsut)","desc":"เว็บคำนวณราคาสินค้า เทียบว่าขนาดไหน ราคาไหนคุ้มกว่ากันเวลาไปห้าง","author":"Siriwat Wanghorm","url":"https://kumsut.pages.dev","domain":"kumsut.pages.dev","extras":[],"reactions":16,"ok":true,"src":"https://www.facebook.com/groups/1745892855948687/posts/2323047211566579/?comment_id=2323704878167479&__cft__[0]=AZZaHDg-RD2maDCWcmP_-Tz4xDExBUveh3Xdzown5w3r3yZYQ2FqPr7-75Y01kWETb5JKDHLDldoE2sg2lKIG95w3Rlpguo85OpFT65DiDoUauBihl_A2hQoxR-A50zQQXAc3QKkKSBmEd0k0Llcvzxw&__tn__=R]-R"},{"no":113,"cat":"ช้อปปิ้ง & การตลาด","name":"DealDed","desc":"เว็บรวมสินค้าสำหรับคนทำ Shopee Affiliate ใช้กับ TikTok ได้ หลังบ้านคัดสินค้าและส่งไปสร้างวิดีโอปักตะกร้า","author":"Theeraphat Sritharathikhun","url":"https://dealded.com","domain":"dealded.com","extras":[],"reactions":14,"ok":true,"src":"https://www.facebook.com/groups/1745892855948687/posts/2323047211566579/?comment_id=2323753984829235&__cft__[0]=AZZaHDg-RD2maDCWcmP_-Tz4xDExBUveh3Xdzown5w3r3yZYQ2FqPr7-75Y01kWETb5JKDHLDldoE2sg2lKIG95w3Rlpguo85OpFT65DiDoUauBihl_A2hQoxR-A50zQQXAc3QKkKSBmEd0k0Llcvzxw&__tn__=R]-R"},{"no":114,"cat":"ช้อปปิ้ง & การตลาด","name":"คุ้มไหม (Khummai)","desc":"เว็บคำนวณค่าธรรมเนียมการขายของออนไลน์บน Shopee, TikTok และ Lazada","author":"Watcharapong Nanthasan","url":"https://khummai.com","domain":"khummai.com","extras":[],"reactions":14,"ok":true,"src":"https://www.facebook.com/groups/1745892855948687/posts/2323047211566579/?comment_id=2323622828175684&__cft__[0]=AZZaHDg-RD2maDCWcmP_-Tz4xDExBUveh3Xdzown5w3r3yZYQ2FqPr7-75Y01kWETb5JKDHLDldoE2sg2lKIG95w3Rlpguo85OpFT65DiDoUauBihl_A2hQoxR-A50zQQXAc3QKkKSBmEd0k0Llcvzxw&__tn__=R]-R"},{"no":115,"cat":"ช้อปปิ้ง & การตลาด","name":"KudoKit","desc":"แอปรวมรีวิวจากหลายช่องทางและแชร์ต่อบน Social/Website ได้ง่าย","author":"Sitthinunt Pholvisutsak","url":"https://kudokit.co","domain":"kudokit.co","extras":[],"reactions":11,"ok":true,"src":"https://www.facebook.com/groups/1745892855948687/posts/2323047211566579/?comment_id=2323469398191027&__cft__[0]=AZZaHDg-RD2maDCWcmP_-Tz4xDExBUveh3Xdzown5w3r3yZYQ2FqPr7-75Y01kWETb5JKDHLDldoE2sg2lKIG95w3Rlpguo85OpFT65DiDoUauBihl_A2hQoxR-A50zQQXAc3QKkKSBmEd0k0Llcvzxw&__tn__=R]-R"},{"no":116,"cat":"ช้อปปิ้ง & การตลาด","name":"BorowBorow","desc":"เว็บเช่ายืมของแบบ P2P รองรับทั้งการจองล่วงหน้าและยืมด่วน","author":"Santisuk Promwang","url":"https://borowborow.vercel.app/","domain":"borowborow.vercel.app","extras":[],"reactions":5,"ok":true,"src":"https://www.facebook.com/groups/1745892855948687/posts/2323047211566579/?comment_id=2323942938143673&__cft__[0]=AZZaHDg-RD2maDCWcmP_-Tz4xDExBUveh3Xdzown5w3r3yZYQ2FqPr7-75Y01kWETb5JKDHLDldoE2sg2lKIG95w3Rlpguo85OpFT65DiDoUauBihl_A2hQoxR-A50zQQXAc3QKkKSBmEd0k0Llcvzxw&__tn__=R]-R"},{"no":117,"cat":"ช้อปปิ้ง & การตลาด","name":"ThaiInsights DeepSearch","desc":"เครื่องมือ Social Listening รองรับ Facebook + TikTok ดึงโพสต์/คอมเมนต์ เทียบ engagement ถอดเสียงคลิป TikTok ตรวจจับคอมเมนต์ IO และ export report","author":"Sorawich Sawangsuk","url":"https://deepsearch.thaiinsights.com/welcome","domain":"deepsearch.thaiinsights.com","extras":[],"reactions":5,"ok":true,"src":"https://www.facebook.com/groups/1745892855948687/posts/2323047211566579/?comment_id=2324411564763477&__cft__[0]=AZZaHDg-RD2maDCWcmP_-Tz4xDExBUveh3Xdzown5w3r3yZYQ2FqPr7-75Y01kWETb5JKDHLDldoE2sg2lKIG95w3Rlpguo85OpFT65DiDoUauBihl_A2hQoxR-A50zQQXAc3QKkKSBmEd0k0Llcvzxw&__tn__=R]-R"},{"no":118,"cat":"ช้อปปิ้ง & การตลาด","name":"วีสุวรรณ (Weesuwan)","desc":"เว็บเช่าพระ เชื่อม API ไปรษณีย์ออกเลข tracking ทันที ตรวจสลิป แจ้งออเดอร์ผ่าน Telegram และ map domain ให้ร้านใหม่ได้ทันที","author":"Kathawut Kumpor","url":"https://weesuwan.phra.shop","domain":"weesuwan.phra.shop","extras":[],"reactions":5,"ok":true,"src":"https://www.facebook.com/groups/1745892855948687/posts/2323047211566579/?comment_id=2323631238174843&__cft__[0]=AZZaHDg-RD2maDCWcmP_-Tz4xDExBUveh3Xdzown5w3r3yZYQ2FqPr7-75Y01kWETb5JKDHLDldoE2sg2lKIG95w3Rlpguo85OpFT65DiDoUauBihl_A2hQoxR-A50zQQXAc3QKkKSBmEd0k0Llcvzxw&__tn__=R]-R"},{"no":119,"cat":"ช้อปปิ้ง & การตลาด","name":"Chrome Extension เช็คคนไม่ฟอลบน X","desc":"ส่วนขยายเช็คว่าใครใน X (Twitter) ไม่ได้ฟอลโลว์กลับ เพื่ออันฟอลได้ง่าย","author":"Theeraphat Sritharathikhun","url":"https://chromewebstore.google.com/.../mljjpagc.../preview","domain":"chromewebstore.google.com","extras":[],"reactions":3,"ok":false,"src":"https://www.facebook.com/groups/1745892855948687/posts/2323047211566579/?comment_id=2323767188161248&__cft__[0]=AZZaHDg-RD2maDCWcmP_-Tz4xDExBUveh3Xdzown5w3r3yZYQ2FqPr7-75Y01kWETb5JKDHLDldoE2sg2lKIG95w3Rlpguo85OpFT65DiDoUauBihl_A2hQoxR-A50zQQXAc3QKkKSBmEd0k0Llcvzxw&__tn__=R]-R"},{"no":120,"cat":"ช้อปปิ้ง & การตลาด","name":"S-Water","desc":"แอปเชื่อมคนที่ต้องการซื้อน้ำดื่มกับร้านน้ำดื่มในชุมชน เหมาะกับคนอยู่หอพักหรือไม่มีรถ","author":"Pitsanu Phaamnat","url":"https://play.google.com/store/apps/details","domain":"play.google.com","extras":[],"reactions":3,"ok":false,"src":"https://www.facebook.com/groups/1745892855948687/posts/2323047211566579/?comment_id=2324660651405235&__cft__[0]=AZZaHDg-RD2maDCWcmP_-Tz4xDExBUveh3Xdzown5w3r3yZYQ2FqPr7-75Y01kWETb5JKDHLDldoE2sg2lKIG95w3Rlpguo85OpFT65DiDoUauBihl_A2hQoxR-A50zQQXAc3QKkKSBmEd0k0Llcvzxw&__tn__=R]-R"},{"no":121,"cat":"ช้อปปิ้ง & การตลาด","name":"ราคาถูกยัง","desc":"เว็บเช็กประวัติราคาสินค้า Shopee ดูว่าราคาที่จะซื้อถูกจริงหรือไม่","author":"Peerayot Pingpithayakul","url":"https://rakatookyang.com","domain":"rakatookyang.com","extras":[],"reactions":3,"ok":true,"src":"https://www.facebook.com/groups/1745892855948687/posts/2323047211566579/?comment_id=2323365671534733&__cft__[0]=AZZaHDg-RD2maDCWcmP_-Tz4xDExBUveh3Xdzown5w3r3yZYQ2FqPr7-75Y01kWETb5JKDHLDldoE2sg2lKIG95w3Rlpguo85OpFT65DiDoUauBihl_A2hQoxR-A50zQQXAc3QKkKSBmEd0k0Llcvzxw&__tn__=R]-R"},{"no":122,"cat":"ช้อปปิ้ง & การตลาด","name":"Extension โพสต์กลุ่ม Facebook อัตโนมัติ","desc":"ส่วนขยายช่วยโพสต์ลงกลุ่ม Facebook อัตโนมัติ สำหรับโปรโมทร้านและสินค้าที่ต้องโพสต์บ่อยหลายกลุ่ม","author":"Nattaporn Kigpadermkul","url":"https://chromewebstore.google.com/.../nipfigapikmcbahblde","domain":"chromewebstore.google.com","extras":[],"reactions":1,"ok":false,"src":"https://www.facebook.com/groups/1745892855948687/posts/2323047211566579/?comment_id=2323373281533972&__cft__[0]=AZZaHDg-RD2maDCWcmP_-Tz4xDExBUveh3Xdzown5w3r3yZYQ2FqPr7-75Y01kWETb5JKDHLDldoE2sg2lKIG95w3Rlpguo85OpFT65DiDoUauBihl_A2hQoxR-A50zQQXAc3QKkKSBmEd0k0Llcvzxw&__tn__=R]-R"},{"no":123,"cat":"ช้อปปิ้ง & การตลาด","name":"Mapii","desc":"เครื่องมือการตลาดช่วยให้ลูกค้าใกล้เคียงเจอร้านก่อนใครบน Google Maps","author":"Patiparn Khunponoy","url":"https://mapii.cloud","domain":"mapii.cloud","extras":[],"reactions":1,"ok":true,"src":"https://www.facebook.com/groups/1745892855948687/posts/2323047211566579/?comment_id=2324504024754231&__cft__[0]=AZZaHDg-RD2maDCWcmP_-Tz4xDExBUveh3Xdzown5w3r3yZYQ2FqPr7-75Y01kWETb5JKDHLDldoE2sg2lKIG95w3Rlpguo85OpFT65DiDoUauBihl_A2hQoxR-A50zQQXAc3QKkKSBmEd0k0Llcvzxw&__tn__=R]-R"},{"no":124,"cat":"กฎหมาย & สิทธิ","name":"พี่สิทธิ์ (Phisith)","desc":"AI ที่ปรึกษาสิทธิแรงงานไทย คำนวณค่าชดเชย ประเมินคดีเลิกจ้างไม่เป็นธรรม และร่างคำฟ้องเบื้องต้น","author":"Kritchai Wichiansanga","url":"https://phisith.com","domain":"phisith.com","extras":[],"reactions":203,"ok":true,"src":"https://www.facebook.com/groups/1745892855948687/posts/2323047211566579/?comment_id=2323624738175493&__cft__[0]=AZZaHDg-RD2maDCWcmP_-Tz4xDExBUveh3Xdzown5w3r3yZYQ2FqPr7-75Y01kWETb5JKDHLDldoE2sg2lKIG95w3Rlpguo85OpFT65DiDoUauBihl_A2hQoxR-A50zQQXAc3QKkKSBmEd0k0Llcvzxw&__tn__=R]-R"},{"no":125,"cat":"กฎหมาย & สิทธิ","name":"Kontrax","desc":"เว็บแอปทำสัญญาจากเทมเพลต ตั้งใจเป็นแพลตฟอร์มกฎหมายราคาย่อมเยาสำหรับคนทั่วไปและ SME ครอบคลุม flow ร่าง-แก้ไข-ยกเลิกสัญญา","author":"Mo Panupan","url":"https://kontrax.co","domain":"kontrax.co","extras":[],"reactions":2,"ok":true,"src":"https://www.facebook.com/groups/1745892855948687/posts/2323047211566579/?comment_id=2324369121434388&__cft__[0]=AZZaHDg-RD2maDCWcmP_-Tz4xDExBUveh3Xdzown5w3r3yZYQ2FqPr7-75Y01kWETb5JKDHLDldoE2sg2lKIG95w3Rlpguo85OpFT65DiDoUauBihl_A2hQoxR-A50zQQXAc3QKkKSBmEd0k0Llcvzxw&__tn__=R]-R"},{"no":126,"cat":"กฎหมาย & สิทธิ","name":"LawLoop","desc":"แอปค้นหากฎหมายและอ่านออกเสียงให้ฟัง ค้นได้โดยไม่ต้องจำเลขมาตรา เหมาะกับนักศึกษา ผู้เตรียมสอบเนติบัณฑิต และคนทำงานสายกฎหมาย","author":"Jay Thanawut","url":"https://apps.apple.com/app/id6797557268","domain":"apps.apple.com","extras":[],"reactions":2,"ok":true,"src":"https://www.facebook.com/groups/1745892855948687/posts/2323047211566579/?comment_id=2323805271490773&__cft__[0]=AZZaHDg-RD2maDCWcmP_-Tz4xDExBUveh3Xdzown5w3r3yZYQ2FqPr7-75Y01kWETb5JKDHLDldoE2sg2lKIG95w3Rlpguo85OpFT65DiDoUauBihl_A2hQoxR-A50zQQXAc3QKkKSBmEd0k0Llcvzxw&__tn__=R]-R"},{"no":127,"cat":"ไลฟ์สไตล์ ครอบครัว & ชุมชน","name":"FireMaiTour","desc":"เว็บรวม \"ทัวร์ไฟไหม้\" (ประเด็นดราม่าที่คนแห่คอมเมนต์)","author":"Pakorn Nathong","url":"https://firemaitour.xyz","domain":"firemaitour.xyz","extras":[],"reactions":438,"ok":true,"src":"https://www.facebook.com/groups/1745892855948687/posts/2323047211566579/?comment_id=2323428198195147&__cft__[0]=AZZaHDg-RD2maDCWcmP_-Tz4xDExBUveh3Xdzown5w3r3yZYQ2FqPr7-75Y01kWETb5JKDHLDldoE2sg2lKIG95w3Rlpguo85OpFT65DiDoUauBihl_A2hQoxR-A50zQQXAc3QKkKSBmEd0k0Llcvzxw&__tn__=R]-R"},{"no":128,"cat":"ไลฟ์สไตล์ ครอบครัว & ชุมชน","name":"Livvie","desc":"แอปรวมเรื่องในบ้านไว้ที่เดียว รายรับรายจ่าย ของใกล้หมด/หมดอายุ งานดูแลบ้าน ต่อภาษีรถ นัดวัคซีนสัตว์เลี้ยง พร้อม AI คิดเมนูจากของใกล้หมดอายุ","author":"Prasoet Chaiwong","url":"https://livvie.site/ios","domain":"livvie.site","extras":[],"reactions":204,"ok":true,"src":"https://www.facebook.com/groups/1745892855948687/posts/2323047211566579/?comment_id=2323644668173500&__cft__[0]=AZZaHDg-RD2maDCWcmP_-Tz4xDExBUveh3Xdzown5w3r3yZYQ2FqPr7-75Y01kWETb5JKDHLDldoE2sg2lKIG95w3Rlpguo85OpFT65DiDoUauBihl_A2hQoxR-A50zQQXAc3QKkKSBmEd0k0Llcvzxw&__tn__=R]-R"},{"no":129,"cat":"ไลฟ์สไตล์ ครอบครัว & ชุมชน","name":"Afternoon Tea Review","desc":"เว็บรีวิวชุดน้ำชายามบ่าย ไมเกรตจากเพจมาเป็นเว็บไซต์","author":"Saranya Siripuekpong","url":"https://www.afternoonteareview.com","domain":"afternoonteareview.com","extras":[],"reactions":52,"ok":true,"src":"https://www.facebook.com/groups/1745892855948687/posts/2323047211566579/?comment_id=2323556788182288&__cft__[0]=AZZaHDg-RD2maDCWcmP_-Tz4xDExBUveh3Xdzown5w3r3yZYQ2FqPr7-75Y01kWETb5JKDHLDldoE2sg2lKIG95w3Rlpguo85OpFT65DiDoUauBihl_A2hQoxR-A50zQQXAc3QKkKSBmEd0k0Llcvzxw&__tn__=R]-R"},{"no":130,"cat":"ไลฟ์สไตล์ ครอบครัว & ชุมชน","name":"OpenKrua","desc":"เว็บรวมสูตรอาหารไทย มีฟีเจอร์ตู้กับข้าวแนะนำเมนูจากวัตถุดิบที่มี และกดซื้อของสดจาก Lotus's ได้จากในสูตร","author":"Zongpol Jongkirkkiat","url":"https://openkrua.com/","domain":"openkrua.com","extras":[],"reactions":51,"ok":true,"src":"https://www.facebook.com/groups/1745892855948687/posts/2323047211566579/?comment_id=2323807354823898&__cft__[0]=AZZaHDg-RD2maDCWcmP_-Tz4xDExBUveh3Xdzown5w3r3yZYQ2FqPr7-75Y01kWETb5JKDHLDldoE2sg2lKIG95w3Rlpguo85OpFT65DiDoUauBihl_A2hQoxR-A50zQQXAc3QKkKSBmEd0k0Llcvzxw&__tn__=R]-R"},{"no":131,"cat":"ไลฟ์สไตล์ ครอบครัว & ชุมชน","name":"เฉียด (Chiad)","desc":"เว็บตรวจสลากกินแบ่งรัฐบาล บอกด้วยว่าเลขที่ตรวจเฉียดรางวัลอื่นในงวดนั้นหรือไม่","author":"Nattapong Klubbanko","url":"https://chiad.app/","domain":"chiad.app","extras":[],"reactions":23,"ok":true,"src":"https://www.facebook.com/groups/1745892855948687/posts/2323047211566579/?comment_id=2323728378165129&__cft__[0]=AZZaHDg-RD2maDCWcmP_-Tz4xDExBUveh3Xdzown5w3r3yZYQ2FqPr7-75Y01kWETb5JKDHLDldoE2sg2lKIG95w3Rlpguo85OpFT65DiDoUauBihl_A2hQoxR-A50zQQXAc3QKkKSBmEd0k0Llcvzxw&__tn__=R]-R"},{"no":132,"cat":"ไลฟ์สไตล์ ครอบครัว & ชุมชน","name":"จองปลอดภัย","desc":"ระบบตรวจสอบเพจปลอม","author":"กอ อาน กานต์","url":"https://www.jongplodpai.com","domain":"jongplodpai.com","extras":[],"reactions":13,"ok":true,"src":"https://www.facebook.com/groups/1745892855948687/posts/2323047211566579/?comment_id=2323904268147540&__cft__[0]=AZZaHDg-RD2maDCWcmP_-Tz4xDExBUveh3Xdzown5w3r3yZYQ2FqPr7-75Y01kWETb5JKDHLDldoE2sg2lKIG95w3Rlpguo85OpFT65DiDoUauBihl_A2hQoxR-A50zQQXAc3QKkKSBmEd0k0Llcvzxw&__tn__=R]-R"},{"no":133,"cat":"ไลฟ์สไตล์ ครอบครัว & ชุมชน","name":"Gotchy","desc":"ตู้โชว์ของสะสมออนไลน์","author":"Tanachod ThaTul Kietbunjong","url":"https://gotchy.app","domain":"gotchy.app","extras":[],"reactions":6,"ok":true,"src":"https://www.facebook.com/groups/1745892855948687/posts/2323047211566579/?comment_id=2323671744837459&__cft__[0]=AZZaHDg-RD2maDCWcmP_-Tz4xDExBUveh3Xdzown5w3r3yZYQ2FqPr7-75Y01kWETb5JKDHLDldoE2sg2lKIG95w3Rlpguo85OpFT65DiDoUauBihl_A2hQoxR-A50zQQXAc3QKkKSBmEd0k0Llcvzxw&__tn__=R]-R"},{"no":134,"cat":"ไลฟ์สไตล์ ครอบครัว & ชุมชน","name":"อุ๊งเกร็บ (Oong-Greb)","desc":"ระบบจัดการตู้เย็นทั้งบ้านร่วมกันแบบเรียลไทม์ ทำงานบน LINE ไม่ต้องโหลดแอปใหม่","author":"Tananut Panyagosa","url":"https://oong-greb.com/","domain":"oong-greb.com","extras":[],"reactions":6,"ok":true,"src":"https://www.facebook.com/groups/1745892855948687/posts/2323047211566579/?comment_id=2324376708100296&__cft__[0]=AZZaHDg-RD2maDCWcmP_-Tz4xDExBUveh3Xdzown5w3r3yZYQ2FqPr7-75Y01kWETb5JKDHLDldoE2sg2lKIG95w3Rlpguo85OpFT65DiDoUauBihl_A2hQoxR-A50zQQXAc3QKkKSBmEd0k0Llcvzxw&__tn__=R]-R"},{"no":135,"cat":"ไลฟ์สไตล์ ครอบครัว & ชุมชน","name":"Expiva","desc":"ระบบแจ้งเตือนวันหมดอายุสินค้าอุปโภคบริโภค ถ่ายรูปสินค้าแล้ว OCR ให้อัตโนมัติ แจ้งเตือนทางอีเมลทุก 8 โมงเช้า","author":"Pong Kmitl","url":"https://expiva.lhumcom.com/","domain":"expiva.lhumcom.com","extras":[],"reactions":3,"ok":true,"src":"https://www.facebook.com/groups/1745892855948687/posts/2323047211566579/?comment_id=2324364444768189&__cft__[0]=AZZaHDg-RD2maDCWcmP_-Tz4xDExBUveh3Xdzown5w3r3yZYQ2FqPr7-75Y01kWETb5JKDHLDldoE2sg2lKIG95w3Rlpguo85OpFT65DiDoUauBihl_A2hQoxR-A50zQQXAc3QKkKSBmEd0k0Llcvzxw&__tn__=R]-R"},{"no":136,"cat":"ไลฟ์สไตล์ ครอบครัว & ชุมชน","name":"FarkNoi (ฝากหน่อย)","desc":"ระบบฝากซื้อของระหว่างทาง เชื่อมคนที่กำลังเดินทางกับคนที่อยากฝากซื้อ สร้างรายได้เสริมจากเส้นทางที่เดินทางอยู่แล้ว","author":"Kittiphop Sompuech","url":"https://www.facebook.com/share/p/19ZSFsv6wt","domain":"facebook.com","extras":[],"reactions":2,"ok":true,"src":"https://www.facebook.com/groups/1745892855948687/posts/2323047211566579/?comment_id=2323350741536226&reply_comment_id=2324614124743221&__cft__[0]=AZZaHDg-RD2maDCWcmP_-Tz4xDExBUveh3Xdzown5w3r3yZYQ2FqPr7-75Y01kWETb5JKDHLDldoE2sg2lKIG95w3Rlpguo85OpFT65DiDoUauBihl_A2hQoxR-A50zQQXAc3QKkKSBmEd0k0Llcvzxw&__tn__=R]-R"},{"no":137,"cat":"ไลฟ์สไตล์ ครอบครัว & ชุมชน","name":"ปันเด็กดี","desc":"เว็บช่วยพ่อแม่สร้างเวลาคุณภาพกับลูก ระบุเวลาที่มีแล้วระบบจัดกิจกรรม นิทาน และเกมฝึกคิดให้ทันที","author":"รับเขียนโปรแกรมอุบล รับทำเว็บไซต์อุบล","url":"https://pandekdee.com","domain":"pandekdee.com","extras":[],"reactions":1,"ok":true,"src":"https://www.facebook.com/groups/1745892855948687/posts/2323047211566579/?comment_id=2323511468186820&__cft__[0]=AZZaHDg-RD2maDCWcmP_-Tz4xDExBUveh3Xdzown5w3r3yZYQ2FqPr7-75Y01kWETb5JKDHLDldoE2sg2lKIG95w3Rlpguo85OpFT65DiDoUauBihl_A2hQoxR-A50zQQXAc3QKkKSBmEd0k0Llcvzxw&__tn__=R]-R"},{"no":138,"cat":"อสังหาริมทรัพย์","name":"Ashton","desc":"เว็บวิเคราะห์ทำเลอสังหาริมทรัพย์ ดูอนาคตย่านจากโปรเจกต์และ demand การจ้างงาน ย้อนดูดัชนีอากาศ น้ำท่วม ไฟดับ ไฟไหม้ และสถิติอาชญากรรม","author":"Phattaraphon Chomchaiyaphum","url":"https://phattra-ashton.vercel.app/ashton","domain":"phattra-ashton.vercel.app","extras":[],"reactions":28,"ok":true,"src":"https://www.facebook.com/groups/1745892855948687/posts/2323047211566579/?comment_id=2323881644816469&__cft__[0]=AZZaHDg-RD2maDCWcmP_-Tz4xDExBUveh3Xdzown5w3r3yZYQ2FqPr7-75Y01kWETb5JKDHLDldoE2sg2lKIG95w3Rlpguo85OpFT65DiDoUauBihl_A2hQoxR-A50zQQXAc3QKkKSBmEd0k0Llcvzxw&__tn__=R]-R"},{"no":139,"cat":"อสังหาริมทรัพย์","name":"EasyRoomBill","desc":"ระบบจัดการหอพัก ห้องเช่า และอพาร์ตเมนต์ ออกบิลค่าเช่า/น้ำ/ไฟ ผู้เช่าแจ้งชำระพร้อมแนบสลิป ติดตามบิลค้าง รับแจ้งซ่อม และแจ้งเตือนผ่าน LINE","author":"Pongsakorn Thonngooluam","url":"https://www.easyroombill.com/","domain":"easyroombill.com","extras":[],"reactions":2,"ok":true,"src":"https://www.facebook.com/groups/1745892855948687/posts/2323047211566579/?comment_id=2324396688098298&__cft__[0]=AZZaHDg-RD2maDCWcmP_-Tz4xDExBUveh3Xdzown5w3r3yZYQ2FqPr7-75Y01kWETb5JKDHLDldoE2sg2lKIG95w3Rlpguo85OpFT65DiDoUauBihl_A2hQoxR-A50zQQXAc3QKkKSBmEd0k0Llcvzxw&__tn__=R]-R"},{"no":140,"cat":"รวมผลงาน & อื่น ๆ","name":"1Claude by ThaiTH","desc":"โปรเจกต์ inception รวมทุกผลงานที่โพสต์ในกระทู้นี้ไว้ที่เดียว","author":"Max Kortrakul","url":"https://open.thaith.ai/1claude/","domain":"open.thaith.ai","extras":[],"reactions":149,"ok":true,"src":"https://www.facebook.com/groups/1745892855948687/posts/2323047211566579/?comment_id=2323817328156234&__cft__[0]=AZZaHDg-RD2maDCWcmP_-Tz4xDExBUveh3Xdzown5w3r3yZYQ2FqPr7-75Y01kWETb5JKDHLDldoE2sg2lKIG95w3Rlpguo85OpFT65DiDoUauBihl_A2hQoxR-A50zQQXAc3QKkKSBmEd0k0Llcvzxw&__tn__=R]-R"},{"no":141,"cat":"รวมผลงาน & อื่น ๆ","name":"TellMe.best","desc":"ทำคนเดียวราว 2 สัปดาห์รวมระบบหลังบ้าน (เจ้าของไม่ได้ระบุรายละเอียดการใช้งาน)","author":"Montorio Whale","url":"https://tellme.best/","domain":"tellme.best","extras":[],"reactions":117,"ok":true,"src":"https://www.facebook.com/groups/1745892855948687/posts/2323047211566579/?comment_id=2323348268203140&__cft__[0]=AZZaHDg-RD2maDCWcmP_-Tz4xDExBUveh3Xdzown5w3r3yZYQ2FqPr7-75Y01kWETb5JKDHLDldoE2sg2lKIG95w3Rlpguo85OpFT65DiDoUauBihl_A2hQoxR-A50zQQXAc3QKkKSBmEd0k0Llcvzxw&__tn__=R]-R"},{"no":142,"cat":"รวมผลงาน & อื่น ๆ","name":"สรุปผลงานตามหมวดหมู่ (Tanit Mick)","desc":"โพสต์รวบรวมผลงานจากกระทู้นี้ จัดให้กดดูตามหมวดหมู่ได้","author":"Tanit Mick","url":"https://www.facebook.com/share/p/17ws3B8JcJ/?mibextid=wwXIfr","domain":"facebook.com","extras":[],"reactions":61,"ok":true,"src":"https://www.facebook.com/groups/1745892855948687/posts/2323047211566579/?comment_id=2323850274819606&__cft__[0]=AZZaHDg-RD2maDCWcmP_-Tz4xDExBUveh3Xdzown5w3r3yZYQ2FqPr7-75Y01kWETb5JKDHLDldoE2sg2lKIG95w3Rlpguo85OpFT65DiDoUauBihl_A2hQoxR-A50zQQXAc3QKkKSBmEd0k0Llcvzxw&__tn__=R]-R"},{"no":143,"cat":"รวมผลงาน & อื่น ๆ","name":"แอป iOS (ไม่ระบุชื่อ)","desc":"เจ้าของระบุว่ามีผู้ใช้ในระบบ 13,000 คน active ประมาณวันละ 500-600 คน แต่ไม่ได้ระบุประเภทแอป","author":"Stamp Chanpittayanukoonkit","url":"https://apps.apple.com/app/id6747997461","domain":"apps.apple.com","extras":[],"reactions":55,"ok":true,"src":"https://www.facebook.com/groups/1745892855948687/posts/2323047211566579/?comment_id=2323451551526145&__cft__[0]=AZZaHDg-RD2maDCWcmP_-Tz4xDExBUveh3Xdzown5w3r3yZYQ2FqPr7-75Y01kWETb5JKDHLDldoE2sg2lKIG95w3Rlpguo85OpFT65DiDoUauBihl_A2hQoxR-A50zQQXAc3QKkKSBmEd0k0Llcvzxw&__tn__=R]-R"},{"no":144,"cat":"รวมผลงาน & อื่น ๆ","name":"Meow-Wat","desc":"เปิดใช้งานมาสองเดือน (เจ้าของไม่ได้ระบุรายละเอียดการใช้งาน)","author":"Tilemap.exe","url":"https://meow-wat.com/","domain":"meow-wat.com","extras":[],"reactions":11,"ok":true,"src":"https://www.facebook.com/groups/1745892855948687/posts/2323047211566579/?comment_id=2323439701527330&__cft__[0]=AZZaHDg-RD2maDCWcmP_-Tz4xDExBUveh3Xdzown5w3r3yZYQ2FqPr7-75Y01kWETb5JKDHLDldoE2sg2lKIG95w3Rlpguo85OpFT65DiDoUauBihl_A2hQoxR-A50zQQXAc3QKkKSBmEd0k0Llcvzxw&__tn__=R]-R"},{"no":145,"cat":"รวมผลงาน & อื่น ๆ","name":"ToyTime","desc":"เจ้าของระบุว่าเป็นมือใหม่หัดทำ ไม่ได้ให้รายละเอียด","author":"Phongsathorn Emabootra","url":"https://www.toytime.online","domain":"toytime.online","extras":[],"reactions":3,"ok":true,"src":"https://www.facebook.com/groups/1745892855948687/posts/2323047211566579/?comment_id=2323352004869433&__cft__[0]=AZZaHDg-RD2maDCWcmP_-Tz4xDExBUveh3Xdzown5w3r3yZYQ2FqPr7-75Y01kWETb5JKDHLDldoE2sg2lKIG95w3Rlpguo85OpFT65DiDoUauBihl_A2hQoxR-A50zQQXAc3QKkKSBmEd0k0Llcvzxw&__tn__=R]-R"},{"no":146,"cat":"รวมผลงาน & อื่น ๆ","name":"Giffdee","desc":"เว็บที่สร้างเสร็จใน 2 วัน โดยเจ้าของทำหน้าที่แค่จด domain ส่วนรูปและระบบ AI ทำทั้งหมด","author":"ยศพนธ์ นารินทร์","url":"https://www.giffdee.com/","domain":"giffdee.com","extras":[],"reactions":2,"ok":true,"src":"https://www.facebook.com/groups/1745892855948687/posts/2323047211566579/?comment_id=2324346758103291&__cft__[0]=AZZaHDg-RD2maDCWcmP_-Tz4xDExBUveh3Xdzown5w3r3yZYQ2FqPr7-75Y01kWETb5JKDHLDldoE2sg2lKIG95w3Rlpguo85OpFT65DiDoUauBihl_A2hQoxR-A50zQQXAc3QKkKSBmEd0k0Llcvzxw&__tn__=R]-R"},{"no":147,"cat":"รวมผลงาน & อื่น ๆ","name":"Dremzo","desc":"เจ้าของแนบเฉพาะลิงก์ ไม่ได้ระบุรายละเอียด","author":"Jutalak Noonurat","url":"https://dremzo.com","domain":"dremzo.com","extras":[],"reactions":1,"ok":true,"src":"https://www.facebook.com/groups/1745892855948687/posts/2323047211566579/?comment_id=2324758661395434&reply_comment_id=2324759071395393&__cft__[0]=AZZaHDg-RD2maDCWcmP_-Tz4xDExBUveh3Xdzown5w3r3yZYQ2FqPr7-75Y01kWETb5JKDHLDldoE2sg2lKIG95w3Rlpguo85OpFT65DiDoUauBihl_A2hQoxR-A50zQQXAc3QKkKSBmEd0k0Llcvzxw&__tn__=R]-R"}]};
+const {rooms, items} = DATA;
+
+/* ── ภาพปกริโซกราฟ: สุ่มจากชื่อผลงาน ผลงานเดิมได้ลายเดิมเสมอ ── */
+function seedOf(s){
+  let h = 2166136261;
+  for (let i = 0; i < s.length; i++){ h ^= s.charCodeAt(i); h = Math.imul(h, 16777619); }
+  return h >>> 0;
+}
+function rng(seed){
+  let a = seed;
+  return () => { a |= 0; a = a + 0x6D2B79F5 | 0;
+    let t = Math.imul(a ^ a >>> 15, 1 | a);
+    t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t;
+    return ((t ^ t >>> 14) >>> 0) / 4294967296; };
+}
+function css(v){ return getComputedStyle(document.documentElement).getPropertyValue(v).trim(); }
+
+function blob(ctx, r, cx, cy, rad){
+  const pts = 6 + Math.floor(r() * 3);
+  ctx.beginPath();
+  for (let i = 0; i <= pts; i++){
+    const ang = (i / pts) * Math.PI * 2;
+    const rr = rad * (0.62 + r() * 0.55);
+    const x = cx + Math.cos(ang) * rr, y = cy + Math.sin(ang) * rr * 0.82;
+    if (i === 0) ctx.moveTo(x, y);
+    else {
+      const pa = ((i - 0.5) / pts) * Math.PI * 2, pr = rad * (0.72 + r() * 0.5);
+      ctx.quadraticCurveTo(cx + Math.cos(pa) * pr, cy + Math.sin(pa) * pr * 0.82, x, y);
+    }
+  }
+  ctx.closePath(); ctx.fill();
+}
+
+function paint(cv){
+  const w = cv.clientWidth || 300, h = cv.clientHeight || 188;
+  if (!w || !h) return;
+  const dpr = Math.min(window.devicePixelRatio || 1, 2);
+  cv.width = Math.round(w * dpr); cv.height = Math.round(h * dpr);
+  const ctx = cv.getContext('2d');
+  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+  const r = rng(seedOf(cv.dataset.seed));
+  ctx.fillStyle = css('--cover'); ctx.fillRect(0, 0, w, h);
+
+  // หมึกสองสีพิมพ์ทับกัน เยื้องกันเล็กน้อยแบบงานพิมพ์จริง
+  const inks = [css('--blue'), css('--rose')];
+  const dark = document.documentElement.getAttribute('data-theme') === 'dark'
+    || (!document.documentElement.getAttribute('data-theme')
+        && matchMedia('(prefers-color-scheme: dark)').matches);
+  ctx.globalCompositeOperation = dark ? 'screen' : 'multiply';
+
+  // เลือกลายจากค่าสุ่มของผลงานนั้น ให้แต่ละใบหน้าตาไม่ซ้ำกัน
+  const motif = Math.floor(r() * 3);
+  ctx.globalAlpha = dark ? 0.42 : 0.56;
+
+  for (let layer = 0; layer < 2; layer++){
+    ctx.fillStyle = ctx.strokeStyle = inks[layer];
+    // เยื้องกันเล็กน้อยแบบพิมพ์ผิดทะเบียนในงานริโซจริง
+    const ox = layer * 3.5, oy = layer * 2.5;
+
+    if (motif === 0){            // ก้อนหมึกทับกัน
+      const n = 2 + Math.floor(r() * 2);
+      for (let i = 0; i < n; i++)
+        blob(ctx, r, w * (0.18 + r() * 0.7) + ox, h * (0.16 + r() * 0.68) + oy,
+             Math.min(w, h) * (0.2 + r() * 0.3));
+
+    } else if (motif === 1){     // แถบหมึกแนวนอน หนาบางไม่เท่ากัน
+      const n = 3 + Math.floor(r() * 3);
+      for (let i = 0; i < n; i++){
+        const y = h * r(), th = h * (0.05 + r() * 0.19);
+        const x = -w * 0.1 + w * r() * 0.5, wd = w * (0.4 + r() * 0.75);
+        ctx.fillRect(x + ox, y + oy, wd, th);
+      }
+
+    } else {                     // วงแหวนซ้อนศูนย์กลาง
+      const cx = w * (0.3 + r() * 0.42), cy = h * (0.28 + r() * 0.44);
+      const n = 3 + Math.floor(r() * 3);
+      for (let i = 0; i < n; i++){
+        ctx.lineWidth = Math.min(w, h) * (0.035 + r() * 0.075);
+        ctx.beginPath();
+        ctx.arc(cx + ox, cy + oy, Math.min(w, h) * (0.12 + i * (0.09 + r() * 0.06)),
+                r() * 6.28, r() * 6.28 + 2.2 + r() * 4);
+        ctx.stroke();
+      }
+    }
+  }
+
+  // เม็ดหมึกและรอยเกรน
+  ctx.globalAlpha = dark ? 0.15 : 0.2;
+  ctx.fillStyle = inks[Math.floor(r() * 2)];
+  for (let i = 0; i < 260; i++){
+    const s = 0.6 + r() * 1.5;
+    ctx.fillRect(r() * w, r() * h, s, s);
+  }
+  ctx.globalAlpha = 1;
+  ctx.globalCompositeOperation = 'source-over';
+  cv.dataset.painted = '1';
+}
+
+const io = new IntersectionObserver((es) => {
+  es.forEach(e => { if (e.isIntersecting && !e.target.dataset.painted) paint(e.target); });
+}, {rootMargin: '260px'});
+
+/* ── สร้างการ์ด ── */
+const pad = n => String(n).padStart(3, '0');
+const esc = s => s.replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+
+function plate(it){
+  const el = document.createElement('article');
+  el.className = 'plate';
+  const cover = it.ok
+    ? `<a class="cover" href="${esc(it.url)}" target="_blank" rel="noopener"
+          aria-label="เปิด ${esc(it.name)} ในแท็บใหม่">`
+    : `<div class="cover cover--dead">`;
+  const coverEnd = it.ok ? '</a>' : '</div>';
+
+  el.innerHTML = cover +
+      `<canvas data-seed="${esc(it.name + it.no)}" aria-hidden="true"></canvas>` +
+      `<span class="cover-no">${pad(it.no)}</span>` +
+      (it.domain ? `<span class="cover-dom">${esc(it.domain)}</span>` : '') +
+      coverEnd +
+    `<div class="label">
+       <h3>${it.ok ? `<a href="${esc(it.url)}" target="_blank" rel="noopener">${esc(it.name)}</a>`
+                   : esc(it.name)}</h3>
+       <p class="by">${esc(it.author)}</p>
+       <p class="desc">${esc(it.desc)}</p>
+       <div class="foot">
+         ${it.ok ? `<a href="${esc(it.url)}" target="_blank" rel="noopener">เข้าชมผลงาน</a>`
+                 : `<span class="warn">ลิงก์ไม่สมบูรณ์</span>`}
+         <span class="sep">/</span>
+         <a href="${esc(it.src)}" target="_blank" rel="noopener">คอมเมนต์</a>
+         ${it.reactions ? `<span class="rea">${it.reactions.toLocaleString('th-TH')} รีแอ็กชัน</span>` : ''}
+       </div>
+     </div>`;
+  el.querySelectorAll('canvas').forEach(c => io.observe(c));
+  return el;
+}
+
+/* ── สถานะและการเรนเดอร์ ── */
+let room = null, q = '', sort = 'room';
+const main = document.getElementById('main');
+
+function visible(){
+  const t = q.trim().toLowerCase();
+  return items.filter(it => {
+    if (room && it.cat !== room) return false;
+    if (!t) return true;
+    return (it.name + ' ' + it.desc + ' ' + it.author + ' ' + it.cat + ' ' + it.domain)
+      .toLowerCase().includes(t);
+  });
+}
+
+function render(){
+  const list = visible();
+  main.textContent = '';
+
+  document.getElementById('count').textContent =
+    (room || q.trim())
+      ? `แสดง ${list.length} จาก ${items.length} ผลงาน`
+      : `ทั้งหมด ${items.length} ผลงาน ใน ${rooms.length} หมวดหมู่`;
+
+  if (!list.length){
+    const d = document.createElement('div');
+    d.className = 'empty';
+    d.innerHTML = '<p>ไม่พบผลงานที่ตรงกับที่ค้นหา</p><p>ลองใช้คำสั้นลง หรือกดหมวด “ทั้งหมด”</p>';
+    main.appendChild(d);
+    return;
+  }
+
+  if (sort === 'room'){
+    rooms.forEach((name, i) => {
+      const group = list.filter(it => it.cat === name);
+      if (!group.length) return;
+      const sec = document.createElement('section');
+      sec.className = 'room';
+      sec.innerHTML =
+        `<div class="room-head">
+           <span class="room-no">ห้อง ${pad(i + 1).slice(1)}</span>
+           <h2>${esc(name)}</h2>
+           <span class="room-n">${group.length} ผลงาน</span>
+         </div>`;
+      const g = document.createElement('div');
+      g.className = 'grid';
+      group.forEach(it => g.appendChild(plate(it)));
+      sec.appendChild(g);
+      main.appendChild(sec);
+    });
+  } else {
+    const sorted = list.slice().sort(
+      sort === 'rea' ? (a, b) => b.reactions - a.reactions
+                     : (a, b) => a.name.localeCompare(b.name, 'th'));
+    const sec = document.createElement('section');
+    sec.className = 'room';
+    const g = document.createElement('div');
+    g.className = 'grid';
+    sorted.forEach(it => g.appendChild(plate(it)));
+    sec.appendChild(g);
+    main.appendChild(sec);
+  }
+}
+
+/* ── ปุ่มกรองหมวด ── */
+const chips = document.getElementById('chips');
+function chip(label, value, n){
+  const b = document.createElement('button');
+  b.className = 'chip'; b.type = 'button';
+  b.setAttribute('aria-pressed', String(room === value));
+  b.innerHTML = esc(label) + (n != null ? `<i>${n}</i>` : '');
+  b.onclick = () => {
+    room = (room === value) ? null : value;
+    syncFilter();
+    render();
+    // เลื่อนไปต้นผลลัพธ์ ไม่ให้ผู้ใช้ค้างอยู่กลางหน้าเดิม
+    main.scrollIntoView({behavior: matchMedia('(prefers-reduced-motion: reduce)').matches
+      ? 'auto' : 'smooth', block: 'start'});
+  };
+  b.dataset.v = value ?? '';
+  return b;
+}
+chips.appendChild(chip('ทั้งหมด', null, items.length));
+rooms.forEach(name => chips.appendChild(chip(name, name, items.filter(i => i.cat === name).length)));
+
+const clearBtn = document.getElementById('clear');
+function syncFilter(){
+  chips.querySelectorAll('.chip').forEach(c =>
+    c.setAttribute('aria-pressed', String(c.dataset.v === (room ?? ''))));
+  clearBtn.dataset.on = room ? '1' : '0';
+  document.getElementById('clear-name').textContent = room || '';
+}
+clearBtn.onclick = () => { room = null; syncFilter(); render(); };
+
+document.getElementById('q').addEventListener('input', e => { q = e.target.value; render(); });
+document.getElementById('sort').addEventListener('change', e => { sort = e.target.value; render(); });
+
+/* ── ตัวเลขสรุปและหมายเหตุ ── */
+const dead = items.filter(i => !i.ok).length;
+document.getElementById('s-works').textContent = items.length;
+document.getElementById('s-rooms').textContent = rooms.length;
+document.getElementById('s-live').textContent = items.length - dead;
+document.getElementById('n-dead').textContent =
+  `${dead} จาก ${items.length} รายการ เพราะ Facebook ตัดข้อความลิงก์ยาวด้วยจุดไข่ปลา ` +
+  `และสคริปต์เก็บได้เฉพาะข้อความที่แสดง ลิงก์ App Store กู้คืนได้จากเลขรหัสแอป ` +
+  `แต่ Play Store กับ Chrome Web Store กู้ไม่ได้ รายการเหล่านี้ทำเครื่องหมายไว้ว่า “ลิงก์ไม่สมบูรณ์”`;
+
+render();
+
+/* วาดปกใหม่เมื่อธีมเปลี่ยน เพราะสีหมึกและโหมดผสมสีต่างกันคนละธีม */
+function repaint(){
+  document.querySelectorAll('canvas[data-painted]').forEach(c => { delete c.dataset.painted; });
+  document.querySelectorAll('canvas').forEach(c => {
+    const r = c.getBoundingClientRect();
+    if (r.top < innerHeight + 300 && r.bottom > -300) paint(c);
+  });
+}
+matchMedia('(prefers-color-scheme: dark)').addEventListener('change', repaint);
+new MutationObserver(repaint).observe(document.documentElement, {attributes:true, attributeFilter:['data-theme']});
+addEventListener('resize', () => { clearTimeout(window.__rz); window.__rz = setTimeout(repaint, 220); });
+</script>

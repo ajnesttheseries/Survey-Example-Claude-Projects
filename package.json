@@ -4,7 +4,7 @@
   "private": true,
   "description": "เครื่องมือช่วยเก็บข้อมูลแบบสำรวจ / ความคิดเห็นจากโซเชียล",
   "scripts": {
-    "test": "node tools/test/extractor.test.js"
+    "test": "node tools/test/extractor.test.js && python3 tools/verify_excel.py"
   },
   "devDependencies": {
     "jsdom": "^27.0.0"

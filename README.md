@@ -9,7 +9,8 @@
 | ไฟล์ | คืออะไร |
 |---|---|
 | `ผลงาน-AI-จากคอมเมนต์-Facebook.xlsx` | แคตตาล็อก 147 ผลงาน 16 หมวด · 3 ชีต (แคตตาล็อก / สรุปตามหมวดหมู่ / วิธีทำและข้อจำกัด) |
-| `gallery/index.html` | เว็บนิทรรศการ ค้นหาและกรองตามหมวดได้ ปกริโซกราฟวาดด้วย canvas |
+| `site/` | เว็บนิทรรศการที่ deploy ขึ้น GitHub Pages (เอกสาร HTML เต็มใบ + ไฟล์ Excel ให้ดาวน์โหลด) |
+| `gallery/index.html` | เว็บเดียวกันในรูปชิ้นส่วนสำหรับ Claude Artifact (ไม่มี `<!doctype>`/`<head>` เพราะระบบห่อให้) |
 | `data/catalog.json` | ข้อมูลแคตตาล็อกที่จัดหมวดแล้ว ใช้ป้อนทั้ง Excel และเว็บ |
 
 ## ขั้นตอน
@@ -19,11 +20,19 @@
   └─ tools/fb-comment-extractor.js   รันใน DevTools Console → JSON
        └─ tools/build_catalog.py     รวม 3 ไฟล์ ตัดซ้ำ จัดหมวด → data/catalog.json
             ├─ tools/make_excel.py     → .xlsx
-            └─ tools/make_gallery.py   → gallery/index.html
+            └─ tools/make_gallery.py   → site/ (GitHub Pages) + gallery/ (Artifact)
 ```
 
 ดึงคอมเมนต์ต้องรันเองในเบราว์เซอร์ เพราะ Facebook ปิด Groups API สำหรับอ่านคอมเมนต์
 ตั้งแต่ปี 2020 วิธีใช้อยู่ใน [`tools/README.md`](tools/README.md)
+
+## เว็บไซต์
+
+https://ajnesttheseries.github.io/Survey-Example-Claude-Projects/
+
+Deploy อัตโนมัติด้วย `.github/workflows/pages.yml` ทุกครั้งที่ push
+โดย CI รัน `tools/make_gallery.py` สร้างเว็บใหม่จาก `data/catalog.json`
+เว็บที่ออนไลน์จึงตรงกับข้อมูลในรีโปเสมอ
 
 ## ตัวเลข
 

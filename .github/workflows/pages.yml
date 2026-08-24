@@ -1,0 +1,63 @@
+name: Deploy gallery to GitHub Pages
+
+on:
+  push:
+    branches: [claude/facebook-post-comments-extraction-70y3hq]
+    # ไฟล์ที่ไม่กระทบหน้าเว็บ ไม่ต้อง deploy ใหม่
+    paths-ignore:
+      - 'README.md'
+      - 'tools/README.md'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# ปล่อยให้ deploy ที่ค้างอยู่ทำงานจนจบ ไม่ยกเลิกกลางคัน
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      # สร้างเว็บใหม่จาก data/catalog.json ทุกครั้ง
+      # เว็บที่ deploy จึงตรงกับข้อมูลในรีโปเสมอ ไม่ต้องพึ่งไฟล์ที่ commit ไว้
+      - name: สร้างไฟล์เว็บจากข้อมูลในรีโป
+        run: python tools/make_gallery.py
+
+      - name: ตรวจว่าไฟล์ที่สร้างครบและถูกต้อง
+        run: |
+          test -f site/index.html || { echo "ไม่พบ site/index.html"; exit 1; }
+          test -f site/thai-ai-showcase.xlsx || { echo "ไม่พบไฟล์ Excel"; exit 1; }
+          head -1 site/index.html | grep -qi '<!doctype html>' \
+            || { echo "site/index.html ไม่ใช่เอกสาร HTML เต็มใบ"; exit 1; }
+          grep -c 'article' site/index.html > /dev/null
+          echo "ขนาดไฟล์: $(du -h site/index.html | cut -f1)"
+
+      - uses: actions/configure-pages@v5
+        with:
+          # เปิด GitHub Pages ให้อัตโนมัติถ้ายังไม่ได้เปิดไว้
+          enablement: true
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

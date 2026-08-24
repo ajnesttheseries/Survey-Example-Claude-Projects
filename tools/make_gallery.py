@@ -243,7 +243,7 @@ a.cover:hover{transform:translateY(-3px); box-shadow:0 1px 0 rgba(22,24,26,.06),
     </p>
     <p class="prov">
       <span>ที่มา</span>
-      <a href="__POST__" target="_blank" rel="noopener">โพสต์ต้นทางบน Facebook</a>
+      <a href="__POST__" target="_blank" rel="noopener">โพสต์ต้นทางบน Facebook</a>__DOWNLOAD__
     </p>
     <div class="stats">
       <div class="stat"><b id="s-works">0</b><span>ผลงาน</span></div>
@@ -588,7 +588,53 @@ addEventListener('resize', () => { clearTimeout(window.__rz); window.__rz = setT
 </script>
 '''
 
-out = HTML.replace('__DATA__', DATA).replace('__POST__', POST)
-path = '/tmp/claude-0/-home-user-Survey-Example-Claude-Projects/ebb5aee4-0d70-5b59-8b13-f3af22750c3e/scratchpad/gallery/index.html'
-open(path, 'w', encoding='utf-8').write(out)
-print('written', len(out), 'bytes ->', path)
+import os, shutil
+
+body = HTML.replace('__DATA__', DATA).replace('__POST__', POST)
+
+# 1) ชิ้นส่วนสำหรับ Artifact — ระบบห่อ <!doctype>/<head>/<body> ให้เอง
+os.makedirs('gallery', exist_ok=True)
+frag = body.replace('__DOWNLOAD__', '')
+open('gallery/index.html', 'w', encoding='utf-8').write(frag)
+
+# 2) เอกสารเต็มใบสำหรับ GitHub Pages
+XLSX_SRC = 'ผลงาน-AI-จากคอมเมนต์-Facebook.xlsx'
+XLSX_WEB = 'thai-ai-showcase.xlsx'   # ชื่อ ASCII กัน URL เพี้ยนตอนดาวน์โหลด
+DESC = ('แคตตาล็อก 147 เครื่องมือที่คนไทยสร้างด้วย AI จัดเป็น 16 หมวด '
+        'พร้อมลิงก์ใช้งานจริง รวบรวมจากคอมเมนต์ในโพสต์ Facebook')
+SITE = 'https://ajnesttheseries.github.io/Survey-Example-Claude-Projects/'
+ICON = ('data:image/svg+xml,'
+        '%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22%3E'
+        '%3Ctext y=%22.9em%22 font-size=%2290%22%3E%F0%9F%8F%9B%EF%B8%8F%3C/text%3E%3C/svg%3E')
+
+download = (f'\n      <span>&middot;</span>\n'
+            f'      <a href="{XLSX_WEB}" download>ดาวน์โหลดตาราง Excel</a>')
+
+head, sep, rest = body.partition('</style>')
+assert sep, 'ไม่พบ </style> — โครงสร้าง template เปลี่ยนไป'
+
+site = (
+    '<!doctype html>\n<html lang="th">\n<head>\n'
+    '<meta charset="utf-8">\n'
+    '<meta name="viewport" content="width=device-width, initial-scale=1">\n'
+    f'<meta name="description" content="{DESC}">\n'
+    '<meta name="color-scheme" content="light dark">\n'
+    f'<link rel="icon" href="{ICON}">\n'
+    '<meta property="og:type" content="website">\n'
+    '<meta property="og:title" content="นิทรรศการผลงาน AI ไทย">\n'
+    f'<meta property="og:description" content="{DESC}">\n'
+    f'<meta property="og:url" content="{SITE}">\n'
+    '<meta name="twitter:card" content="summary">\n'
+    + head + '</style>\n</head>\n<body>\n'
+    + rest.replace('__DOWNLOAD__', download)
+    + '\n</body>\n</html>\n'
+)
+
+os.makedirs('site', exist_ok=True)
+open('site/index.html', 'w', encoding='utf-8').write(site)
+open('site/.nojekyll', 'w').close()          # กัน Jekyll กินไฟล์ที่ขึ้นต้นด้วย _
+if os.path.exists(XLSX_SRC):
+    shutil.copy(XLSX_SRC, os.path.join('site', XLSX_WEB))
+
+print(f'gallery/index.html  {len(frag):,} bytes  (ชิ้นส่วนสำหรับ Artifact)')
+print(f'site/index.html     {len(site):,} bytes  (เอกสารเต็มใบสำหรับ GitHub Pages)')
